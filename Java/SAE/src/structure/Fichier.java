@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package application;
+package structure;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,19 +12,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import structure.Fichier;
-import structure.Graphe;
-import structure.Noeud;
-import structure.Voisin;
 
 /**
  *
  * @author ASUS
  */
-public class Test {
-    public static void main(String[] args) throws FileNotFoundException, IOException{
-        /*Map<Noeud,List<Voisin>> graphe = new HashMap<>();
+public class Fichier {
+    public static Map<Noeud,List<Voisin>> DécoupageFichier(String nomFichier) throws FileNotFoundException, IOException{
+        Map<Noeud,List<Voisin>> graphe = new HashMap<>();
         List<Voisin> listVoisin ;
         String[] contenuLigne;
         Noeud n;
@@ -33,7 +28,7 @@ public class Test {
         String[] arete;
         String[] dest;
         String[] voisin; 
-        try(BufferedReader buff = new BufferedReader(new FileReader("Graphe.csv"))){
+        try(BufferedReader buff = new BufferedReader(new FileReader(nomFichier))){
             String uneLigne;
             while ((uneLigne = buff.readLine())!=null){
                 contenuLigne = uneLigne.split(";");
@@ -60,11 +55,7 @@ public class Test {
                     }
                 }     
             }             
-        }*/
-        Graphe g = new Graphe(Fichier.DécoupageFichier("Graphe.csv"));
-        g.getNoeud();
+        }
+        return graphe;
     }
-          
 }
-        
-        

@@ -5,14 +5,29 @@
 package structure;
 
 /**
- * classe regrouppant les voisins
+ * classe regrouppant les voisins.
  * @author Valentin SEGALLA, Ilyes BEIRADE
  */
 public class Voisin /*implements Iterator*/{
+    
+    /**
+     * attribue route étant un objet de la classe Arête.
+     */
     private final Arete route;
+    
+    /**
+     * attribue destination étant un objet de la classe Noeud.
+     */
     private final Noeud destination;
     
-    public Voisin(String nata, int longueur, String natn, String nom){
+    /**
+     * constructeur de la classe Voisin
+     * @param nata nature de l'arête
+     * @param longueur longueur / distance de l'arête (son poids)
+     * @param natn nature du noeud
+     * @param nom nom du noeud 
+     */
+    public Voisin(String nata, double longueur, String natn, String nom){
         route=new Arete(nata, longueur);
         destination = new Noeud(natn, nom);
     }

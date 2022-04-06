@@ -7,12 +7,26 @@ package structure;
 import java.util.Objects;
 
 /**
- * classe regrouppant les noeuds
+ * classe regrouppant les noeuds.
  * @author Valentin SEGALLA, Ilyes BEIRADE
  */
 public class Noeud {
+    
+    /**
+     * nature du noeud.
+     */
     private final String nature;
+    
+    /**
+     * nom du noeud.
+     */
     private final String nom;
+    
+    /**
+     * constructeur de la classe noeud
+     * @param nature nature du noeud
+     * @param nom nom du noeud
+     */
     public Noeud(String nature, String nom){
         this.nature=nature;
         this.nom=nom;

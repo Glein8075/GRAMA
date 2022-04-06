@@ -13,27 +13,27 @@ import java.util.Objects;
 public class Arete {
     
     /**
-     * type de l'arête ("D"=départementale, "N"=nationnale, "A"=autoroute)
+     * type de l'arête ("D"=départementale, "N"=nationnale, "A"=autoroute).
      */
     private final String type;
     
     /**
-     * distance de la route (poids de l'arête)
+     * distance de la route (poids de l'arête.
      */
-    private final int distance;
+    private final double distance;
     
     /**
-     * constructeur de la classe Arete
+     * constructeur de la classe Arete.
      * @param type type de la route/arête
      * @param distance distance/longueur de la route/poids de l'arête
      */
-    public Arete(String type, int distance){
+    public Arete(String type, double distance){
         this.type=type;
         this.distance=distance;
     }
     
     /**
-     * méthode d'affichage des informations d'une arête
+     * méthode d'affichage des informations d'une arête.
      * @return descritption complete d'une arête
      */
     @Override
@@ -42,7 +42,7 @@ public class Arete {
     }
     
     /**
-     * obtention du type de l'arête
+     * obtention du type de l'arête.
      * @return renvoie le type
      */
     public String getType(){
@@ -50,15 +50,15 @@ public class Arete {
     }
     
     /**
-     * obtention de la distance/longueur de l'arête
+     * obtention de la distance/longueur de l'arête.
      * @return renvoie la distance de l'arête
      */
-    public int getDistance(){
+    public double getDistance(){
         return distance;
     }
     
     /**
-     * méthode de hashage
+     * méthode de hashage.
      * @return résultat de la méthode hash de la classe Objects
      */
     @Override
@@ -67,7 +67,7 @@ public class Arete {
     }
     
     /**
-     * méthode de comparaison
+     * méthode de comparaison.
      * @param o Objet de la classe Object
      * @return "true" si les attribues des objets sont égaux et que l'objet o est une instance de la classe Arête, sinon "false"
      */

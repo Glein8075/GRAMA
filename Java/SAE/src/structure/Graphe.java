@@ -17,35 +17,45 @@ import java.util.Set;
 public class Graphe {
    
     /**
-     * Map graphe ayant pour clé un objet noeud et comme clé un objet voisin
+     * Map graphe ayant pour clé un objet noeud et comme clé un objet voisin.
      */
     private Map<Noeud,List<Voisin>> graphe; 
     
     /**
-    * Un Set permettant le parcout de la Map graphe pour l'affichage d'élément ou autre
+    * Un Set permettant le parcout de la Map graphe pour l'affichage d'élément ou autre.
     */
-    Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.entrySet();
+    Set<Map.Entry<Noeud,List<Voisin>>> parcours;
     
     /**
-     * constructeur de la classe Graphe
-     * @param graphe Map contenant les noeuds et arêtes du graphe
+     * constructeur de la classe Graphe.
+     * @param g Map contenant les noeuds et arêtes du graphe
      */
-    public Graphe(Map<Noeud,List<Voisin>> graphe){
-        this.graphe = graphe;
+    public Graphe(Map<Noeud,List<Voisin>> g){
+        this.graphe = g;
+        parcours = graphe.entrySet();
         
     }
     
     /**
-     * méthode d'affichage du graphe en entier
+     * méthode d'affichage du graphe en entier.
      * @return descritption complete du graphe
      */
     @Override
     public String toString(){
+        /*Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.entrySet();
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+            System.out.println("noeud");
+            System.out.println(entree.getKey());
+            System.out.println("liste voisin");
+            for(Voisin item : entree.getValue()){
+                System.out.println(item);  
+            }
+        }*/
         return "";
     }
     
     /**
-     * obtention de tout les noeuds composant le graphe
+     * obtention de tout les noeuds composant le graphe.
      */
     public void getNoeud(){
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
@@ -54,7 +64,7 @@ public class Graphe {
     }
     
     /**
-     * obtention du nombre de ville dans le graphe
+     * obtention du nombre de ville dans le graphe.
      * @return nombre de noeud de nature "V"
      */
     public int getNbVille(){
@@ -86,7 +96,7 @@ public class Graphe {
     }
     
     /**
-     * obtention du nombre de restorant dans le graphe
+     * obtention du nombre de restorant dans le graphe.
      * @return nombre de noeud de nature "R"
      */
     public int getNbResto(){
@@ -102,7 +112,7 @@ public class Graphe {
     }
     
     /**
-     * obtention du nombre de departementale dans le graphe
+     * obtention du nombre de departementale dans le graphe.
      * @return nombre d'arête de nature "D"
      */
     public int getNbDepartemental(){
