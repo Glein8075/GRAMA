@@ -40,4 +40,20 @@ public class Voisin /*implements Iterator*/{
     public String toString(){
         return route.toString()+"; "+destination.toString();
     }
+    
+    /**
+     * obtention du noeud voisin
+     * @return le noeud voisin
+     */
+    public Noeud getDestination(){
+        return destination;
+    }
+    
+    /**
+     * 
+     */
+    public Arete getRoute(){
+        return route;
+    }
+    
 }

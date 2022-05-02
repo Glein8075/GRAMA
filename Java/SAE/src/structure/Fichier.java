@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.Map;
 public class Fichier {
     public static Map<Noeud,List<Voisin>> DécoupageFichier(String nomFichier) throws FileNotFoundException, IOException{
         Map<Noeud,List<Voisin>> graphe = new HashMap<>();
+        
         List<Voisin> listVoisin ;
         String[] contenuLigne;
         Noeud n;
@@ -54,7 +56,8 @@ public class Fichier {
                         graphe.put(n, listVoisin);   
                     }
                 }     
-            }             
+            }    
+            
         }
         return graphe;
     }

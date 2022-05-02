@@ -4,6 +4,7 @@
  */
 package structure;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class Graphe {
     /**
      * Map graphe ayant pour clé un objet noeud et comme clé un objet voisin.
      */
-    private Map<Noeud,List<Voisin>> graphe; 
+    private final Map<Noeud,List<Voisin>> graphe; 
     
     /**
     * Un Set permettant le parcout de la Map graphe pour l'affichage d'élément ou autre.
@@ -38,11 +39,10 @@ public class Graphe {
     
     /**
      * méthode d'affichage du graphe en entier.
-     * @return descritption complete du graphe
+     
      */
-    @Override
-    public String toString(){
-        /*Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.entrySet();
+    public void getGraphe(){
+        parcours = graphe.entrySet();
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
             System.out.println("noeud");
             System.out.println(entree.getKey());
@@ -50,12 +50,11 @@ public class Graphe {
             for(Voisin item : entree.getValue()){
                 System.out.println(item);  
             }
-        }*/
-        return "";
+        }
     }
     
     /**
-     * obtention de tout les noeuds composant le graphe.
+     * affichage de tout les noeuds contenus le graphe.
      */
     public void getNoeud(){
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
@@ -64,19 +63,40 @@ public class Graphe {
     }
     
     /**
+     * obtention du nombre de noeud du graphe
+     * @return nombre de noeud
+     */
+    public int getNbNoeud(){
+        return graphe.size();
+    }
+    
+    /**
      * obtention du nombre de ville dans le graphe.
      * @return nombre de noeud de nature "V"
      */
     public int getNbVille(){
         Noeud cle;
-        int n = 0;
+        int nbVille = 0;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("V")){
-               n++;
+               nbVille++;
            }
         }
-        return n;
+        return nbVille;
+    }
+    
+    /**
+     * affichage des villes du graphe.
+     */
+    public void getVille(){
+        Noeud cle;
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+           cle = entree.getKey();
+           if(cle.getNature().equals("V")){
+               System.out.println(cle);
+           }
+        }
     }
     
     /**
@@ -85,30 +105,56 @@ public class Graphe {
      */
     public int getNbLoisir(){
         Noeud cle;
-        int n = 0;
+        int nbLoisir = 0;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("L")){
-               n++;
+               nbLoisir++;
            }
         }
-        return n;
+        return nbLoisir;
     }
     
     /**
-     * obtention du nombre de restorant dans le graphe.
+     * affichage des loisirs du graphe
+     */
+    public void getLoisir(){
+        Noeud cle;
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+           cle = entree.getKey();
+           if(cle.getNature().equals("L")){
+               System.out.println(cle);
+           }
+        }
+    }
+    
+    /**
+     * obtention du nombre de restaurant dans le graphe.
      * @return nombre de noeud de nature "R"
      */
-    public int getNbResto(){
+    public int getNbRestaurant(){
         Noeud cle;
-        int n = 0;
+        int nbRestaurant = 0;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("R")){
-               n++;
+               nbRestaurant++;
            }
         }
-        return n;
+        return nbRestaurant;
+    }
+    
+    /**
+     * affichage des restaurants du graphe.
+     */
+    public void getRestaurant(){
+        Noeud cle;
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+           cle = entree.getKey();
+           if(cle.getNature().equals("R")){
+               System.out.println(cle);
+           }
+        }
     }
     
     /**
@@ -116,17 +162,115 @@ public class Graphe {
      * @return nombre d'arête de nature "D"
      */
     public int getNbDepartemental(){
-        List<Noeud> liste ;
+        List<Noeud> liste = new ArrayList<>();
         Iterator<Voisin> itv;
+        Voisin v;
+        int nbDepartemental =0;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
             itv=entree.getValue().iterator();
-            /*while()
-				if ([maillon.noeud.nom,voisin.destination.nom] not in liste or [voisin.destination.nom,maillon.noeud.nom] not in liste) and voisin.route.nature=="N":
-					liste.append([maillon.noeud.nom,voisin.destination.nom])
-				voisin=voisin.v_suiv
-			maillon=maillon.suivant*/
-		
+            while(itv.hasNext()){
+                v=itv.next();
+                if (!liste.contains(v.getDestination())){
+                    if(v.getRoute().getType().equals("D")){
+                        nbDepartemental++;
+                    }
+                    liste.add(v.getDestination());
+                }   
+            }	
         }
-        return 0;
+        return nbDepartemental;
+    }
+    
+    /**
+     * obtention du nombre de Nationnale dans le graphe.
+     * @return nombre d'arête de nature "N"
+     */
+    public int getNbNationnal(){
+        List<Noeud> liste = new ArrayList<>();
+        Iterator<Voisin> itv;
+        Voisin v;
+        int nbNationnal =0;
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+            itv=entree.getValue().iterator();
+            while(itv.hasNext()){
+                v=itv.next();
+                if (!liste.contains(v.getDestination())){
+                    if(v.getRoute().getType().equals("N")){
+                        nbNationnal++;
+                    }
+                    liste.add(v.getDestination());
+                }                
+            }		
+        }
+        return nbNationnal;
+    }
+    
+    /**
+     * obtention du nombre d'autoroute dans le graphe.
+     * @return nombre d'arête de nature "N"
+     */
+    public int getNbAutoroute(){
+        List<Noeud> liste = new ArrayList<>();
+        Iterator<Voisin> itv;
+        Voisin v;
+        int nbAutoroute =0;
+        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
+            itv=entree.getValue().iterator();
+            while(itv.hasNext()){
+                v=itv.next();
+                if (!liste.contains(v.getDestination())){
+                    if(v.getRoute().getType().equals("A")){
+                        nbAutoroute++;
+                    }
+                    liste.add(v.getDestination());
+                }                
+            }		
+        }
+        return nbAutoroute;
+    }
+    
+    /**
+     * Liste tout les voisins à 1-distance d'un sommet entré en paramettre
+     * @param sommet instance de la classe Noeud
+     */
+    public void unDistance(Noeud sommet){
+        try{
+            if(!graphe.containsKey(sommet)){
+                throw new SommetNonPresentException();
+            }
+            Iterator<Voisin> itUnSaut = graphe.get(sommet).iterator();
+            while(itUnSaut.hasNext()){
+                System.out.println(itUnSaut.next().getDestination());
+            }
+        }catch(SommetNonPresentException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    /**
+     * Liste tout les voisins à 2-distance d'un sommet entré en paramettre
+     * @param sommet instance de la classe Noeud
+     */
+    public void deuxDistance(Noeud sommet){
+        try{
+            if(!graphe.containsKey(sommet)){
+                throw new SommetNonPresentException();
+            }
+            List<Noeud> vdeuxdist = new ArrayList<>();
+            Iterator<Voisin> itUnSaut = graphe.get(sommet).iterator();
+            Noeud v;
+            while(itUnSaut.hasNext()){
+                Iterator<Voisin> itDeuxSaut = graphe.get(itUnSaut.next().getDestination()).iterator();
+                while(itDeuxSaut.hasNext()){
+                    v=itDeuxSaut.next().getDestination();
+                    if(!v.equals(sommet)&&!vdeuxdist.contains(v))vdeuxdist.add(v);
+                }
+            }
+            for(Noeud items : vdeuxdist){
+                System.out.println(items);
+            }
+        }catch(SommetNonPresentException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
