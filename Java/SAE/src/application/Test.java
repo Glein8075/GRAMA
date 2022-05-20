@@ -6,9 +6,9 @@ package application;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import structure.Fichier;
-import structure.Graphe;
-import structure.Noeud;
+import metier.Fichier;
+import metier.Graphe;
+import metier.Noeud;
 
 /**
  *
@@ -17,7 +17,8 @@ import structure.Noeud;
 public class Test {
     public static void main(String[] args) throws FileNotFoundException, IOException{
         Graphe g = new Graphe(Fichier.DécoupageFichier("Graphe.csv"));
-        System.out.println(g.getNbNoeud());
+        g.deuxDistance(new Noeud("V","Villeurbanne"));
+        
     }
           
 }
