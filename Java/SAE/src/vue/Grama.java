@@ -32,11 +32,56 @@ public class Grama extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser = new javax.swing.JFileChooser();
+        ecrantPrincipal = new javax.swing.JDialog();
+        listeMethode = new javax.swing.JComboBox<>();
+        jExecuter = new javax.swing.JButton();
+        detailGraphe = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jInfoFichier = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenu = new javax.swing.JMenu();
         jOuvrir = new javax.swing.JMenuItem();
+
+        listeMethode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "information sur le graphe", "voisin à un saut", "voisin à 2 saut", "comparaison entre 2 sommets", " " }));
+
+        jExecuter.setText("Executer");
+        jExecuter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jExecuterActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ecrantPrincipalLayout = new javax.swing.GroupLayout(ecrantPrincipal.getContentPane());
+        ecrantPrincipal.getContentPane().setLayout(ecrantPrincipalLayout);
+        ecrantPrincipalLayout.setHorizontalGroup(
+            ecrantPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ecrantPrincipalLayout.createSequentialGroup()
+                .addGap(203, 203, 203)
+                .addComponent(listeMethode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137)
+                .addComponent(jExecuter)
+                .addContainerGap(242, Short.MAX_VALUE))
+        );
+        ecrantPrincipalLayout.setVerticalGroup(
+            ecrantPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ecrantPrincipalLayout.createSequentialGroup()
+                .addContainerGap(394, Short.MAX_VALUE)
+                .addGroup(ecrantPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listeMethode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jExecuter))
+                .addGap(71, 71, 71))
+        );
+
+        javax.swing.GroupLayout detailGrapheLayout = new javax.swing.GroupLayout(detailGraphe.getContentPane());
+        detailGraphe.getContentPane().setLayout(detailGrapheLayout);
+        detailGrapheLayout.setHorizontalGroup(
+            detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        detailGrapheLayout.setVerticalGroup(
+            detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Grama");
@@ -92,10 +137,34 @@ public class Grama extends javax.swing.JFrame {
         jFileChooser.showOpenDialog(this);
         try {
             graphe = new Graphe(Fichier.DécoupageFichier(jFileChooser.getSelectedFile().getName()));
+            jInfoFichier.setText("Fichier "+jFileChooser.getSelectedFile().getName()+" chargé");
         } catch (IOException ex) {
             jInfoFichier.setText("Aucun fichier trouvé");
         }
+        ecrantPrincipal.setVisible(true);
+        ecrantPrincipal.pack();
+        /*DrawGraphic g = new DrawGraphic(graphe);
+        ecrantPrincipal.add(g);
+        g.setSize(500, 500);*/
     }//GEN-LAST:event_jOuvrirActionPerformed
+
+    private void jExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExecuterActionPerformed
+        // TODO add your handling code here:
+        if(((String)listeMethode.getSelectedItem()).equals("information sur le graphe")){
+            detailGraphe.setVisible(true);
+            detailGraphe.pack();
+        }
+        else if(((String)listeMethode.getSelectedItem()).equals("voisin à un saut")){
+        
+        }
+        else if(((String)listeMethode.getSelectedItem()).equals("voisin à 2 saut")){
+           
+        }
+        else if(((String)listeMethode.getSelectedItem()).equals("comparaison entre 2 sommets")){
+            
+        }
+        ecrantPrincipal.setVisible(false);
+    }//GEN-LAST:event_jExecuterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,11 +203,15 @@ public class Grama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog detailGraphe;
+    private javax.swing.JDialog ecrantPrincipal;
+    private javax.swing.JButton jExecuter;
     private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JLabel jInfoFichier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jOuvrir;
+    private javax.swing.JComboBox<String> listeMethode;
     // End of variables declaration//GEN-END:variables
 }

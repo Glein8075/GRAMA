@@ -37,20 +37,15 @@ public class Graphe {
         
     }
     
+    public Set getSet(){
+        return parcours;
+    }
     /**
-     * méthode d'affichage du graphe en entier.
-     
+     * obtention du graphe en entier.
+     * @return   
      */
-    public void afficherGraphe(){
-        parcours = graphe.entrySet();
-        for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
-            System.out.println("noeud");
-            System.out.println(entree.getKey());
-            System.out.println("liste voisin");
-            for(Voisin item : entree.getValue()){
-                System.out.println(item);  
-            }
-        }
+    public Map<Noeud,List<Voisin>> getGraphe(){
+        return graphe;
     }
     
     /**
@@ -87,16 +82,19 @@ public class Graphe {
     }
     
     /**
-     * affichage des villes du graphe.
+     * obtention des villes du graphe.
+     * @return 
      */
-    public void afficherVille(){
+    public List<Noeud> afficherVille(){
+        List<Noeud> listVille = new ArrayList<>();
         Noeud cle;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("V")){
-               System.out.println(cle);
+               listVille.add(cle);
            }
         }
+        return listVille;
     }
     
     /**
@@ -116,16 +114,19 @@ public class Graphe {
     }
     
     /**
-     * affichage des loisirs du graphe
+     * obtention des loisirs du graphe
+     * @return 
      */
-    public void afficherLoisir(){
+    public List<Noeud> getLoisir(){
+        List<Noeud> listLoisir = new ArrayList<>();
         Noeud cle;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("L")){
-               System.out.println(cle);
+               listLoisir.add(cle);
            }
         }
+        return listLoisir;
     }
     
     /**
@@ -145,16 +146,19 @@ public class Graphe {
     }
     
     /**
-     * affichage des restaurants du graphe.
+     * obtention des restaurants du graphe.
+     * @return 
      */
-    public void afficherRestaurant(){
+    public List<Noeud> getRestaurant(){
+        List<Noeud> listResto = new ArrayList<>();
         Noeud cle;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
            cle = entree.getKey();
            if(cle.getNature().equals("R")){
-               System.out.println(cle);
+               listResto.add(cle);
            }
         }
+        return listResto;
     }
     
     /**
@@ -185,7 +189,7 @@ public class Graphe {
      * obtention du nombre de Nationnale dans le graphe.
      * @return nombre d'arête de nature "N"
      */
-    public int afficherNbNationnal(){
+    public int getNbNationnal(){
         List<Noeud> liste = new ArrayList<>();
         Iterator<Voisin> itv;
         Voisin v;
@@ -230,21 +234,12 @@ public class Graphe {
     }
     
     /**
-     * Liste tout les voisins à 1-distance d'un sommet entré en paramettre
+     * obtention de la liste tout les voisins à 1-distance d'un sommet entré en paramettre
      * @param sommet instance de la classe Noeud
+     * @return 
      */
-    public void unDistance(Noeud sommet){
-        try{
-            if(!graphe.containsKey(sommet)){
-                throw new SommetNonPresentException();
-            }
-            Iterator<Voisin> itUnSaut = graphe.get(sommet).iterator();
-            while(itUnSaut.hasNext()){
-                System.out.println(itUnSaut.next().getDestination());
-            }
-        }catch(SommetNonPresentException e){
-            System.out.println(e.getMessage());
-        }
+    public List<Voisin> unDistance(Noeud sommet){
+        return graphe.get(sommet);
     }
     
     /**
