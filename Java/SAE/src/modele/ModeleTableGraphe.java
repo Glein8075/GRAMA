@@ -4,31 +4,44 @@
  */
 package modele;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.table.AbstractTableModel;
+import metier.Graphe;
+import metier.Noeud;
+import metier.Voisin;
 
 /**
  *
  * @author ASUS
  */
 public class ModeleTableGraphe extends AbstractTableModel{
-
+    
+    private String[] nomColonne = new String[]{"Noeud","Voisin"};
+    
+    
+    public ModeleTableGraphe(){
+        
+    }
+    
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return nomColonne.length;
     }
 
     @Override
     public Object getValueAt(int arg0, int arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
     
     @Override
     public String getColumnName(int col){
-        return null;
+        return nomColonne[col];
     }
 }

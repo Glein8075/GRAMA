@@ -260,16 +260,17 @@ public class Graphe {
                 while(itDeuxSaut.hasNext()){
                     v=itDeuxSaut.next();
                     System.out.println(listVoisin.contains(v));
-                    //if(!v.getDestination().equals(sommet)&&!deuxdist.contains(v.getDestination())&&!listVoisin.contains(v))deuxdist.add(v.getDestination());
+                    if(!v.getDestination().equals(sommet)&&!deuxdist.contains(v.getDestination())&&!listVoisin.contains(v))deuxdist.add(v.getDestination());
                 }
             }
-           /* for(Noeud items : deuxdist){
+           for(Noeud items : deuxdist){
                 System.out.println(items);
-            }*/
+            }
         }catch(SommetNonPresentException e){
             System.out.println(e.getMessage());
         }
     }
+    
     
     
 }
