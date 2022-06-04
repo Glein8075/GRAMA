@@ -37,12 +37,16 @@ public class Graphe {
         
     }
     
+    /**
+     * obtention d'un Objet Set associé aux graphe pour le parcours
+     * @return Objet Set pour parcourir le graphe
+     */
     public Set getSet(){
         return parcours;
     }
     /**
      * obtention du graphe en entier.
-     * @return   
+     * @return hash map correspondant au graphe
      */
     public Map<Noeud,List<Voisin>> getGraphe(){
         return graphe;
@@ -50,11 +54,14 @@ public class Graphe {
     
     /**
      * affichage de tout les noeuds contenus le graphe.
+     * @return liste des noeuds
      */
-    public void afficherNoeud(){
+    public List<Noeud> getNoeud(){
+        List<Noeud> listNoeud = new ArrayList<>();
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
-            System.out.println(entree.getKey());
+            listNoeud.add(entree.getKey());
         }
+        return listNoeud;
     }
     
     /**
@@ -85,7 +92,7 @@ public class Graphe {
      * obtention des villes du graphe.
      * @return 
      */
-    public List<Noeud> afficherVille(){
+    public List<Noeud> getVille(){
         List<Noeud> listVille = new ArrayList<>();
         Noeud cle;
         for(Map.Entry<Noeud,List<Voisin>> entree : parcours){
@@ -236,41 +243,96 @@ public class Graphe {
     /**
      * obtention de la liste tout les voisins à 1-distance d'un sommet entré en paramettre
      * @param sommet instance de la classe Noeud
-     * @return 
+     * @return liste des sommets correspondant aux voisins à 1-distance
      */
-    public List<Voisin> unDistance(Noeud sommet){
-        return graphe.get(sommet);
+    public List<Voisin> unDistance(String sommet){
+        for(Map.Entry<Noeud, List<Voisin>> item : parcours ){
+            if(item.getKey().toString().equals(sommet)){
+                return graphe.get(item.getKey());
+            }
+        }  
+        return null;
     }
     
     /**
      * Liste tout les voisins à 2-distance d'un sommet entré en paramettre
      * @param sommet instance de la classe Noeud
+     * @return liste des sommets correspondant aux voisins à 2-distances
      */
-    public void deuxDistance(Noeud sommet){
-        try{
-            if(!graphe.containsKey(sommet)){
-                throw new SommetNonPresentException();
+    public List<Noeud> deuxDistance(String sommet){
+        for(Map.Entry<Noeud, List<Voisin>> item : parcours ){
+            if(item.getKey().toString().equals(sommet)){
+                List<Noeud> deuxdist = new ArrayList<>();
+                List<Voisin> listVoisin = graphe.get(item.getKey());
+                Iterator<Voisin> itUnSaut = listVoisin.iterator();
+                Voisin v;
+                while(itUnSaut.hasNext()){
+                    Iterator<Voisin> itDeuxSaut = graphe.get(itUnSaut.next().getDestination()).iterator();
+                    while(itDeuxSaut.hasNext()){
+                        v=itDeuxSaut.next();
+                        if(!(v.getDestination().equals(item))&&!(deuxdist.contains(v.getDestination()))&&!(listVoisin.contains(v))){
+                            deuxdist.add(v.getDestination());
+                        }
+                    }
+               }
+            return deuxdist;
             }
-            List<Noeud> deuxdist = new ArrayList<>();
-            List<Voisin> listVoisin = graphe.get(sommet);
-            Iterator<Voisin> itUnSaut = listVoisin.iterator();
-            Voisin v;
-            while(itUnSaut.hasNext()){
-                Iterator<Voisin> itDeuxSaut = graphe.get(itUnSaut.next().getDestination()).iterator();
-                while(itDeuxSaut.hasNext()){
-                    v=itDeuxSaut.next();
-                    System.out.println(listVoisin.contains(v));
-                    if(!v.getDestination().equals(sommet)&&!deuxdist.contains(v.getDestination())&&!listVoisin.contains(v))deuxdist.add(v.getDestination());
-                }
-            }
-           for(Noeud items : deuxdist){
-                System.out.println(items);
-            }
-        }catch(SommetNonPresentException e){
-            System.out.println(e.getMessage());
+            
         }
+        return null;
     }
     
-    
+    public String[] comparaison(String A, String B){
+        String[] resultat = new String[3];
+        List<Noeud> voisinA = this.deuxDistance("V, "+A);
+        List<Noeud> voisinB = this.deuxDistance("V, "+B);
+        int nbVilleA=0;
+        int nbLoisirA=0;
+        int nbRestoA=0;
+        int nbVilleB=0;
+        int nbLoisirB=0;
+        int nbRestoB=0;
+        for(Noeud item : voisinA){
+            if(item.getNature().equals("V")){
+                nbVilleA++;
+            }
+            if(item.getNature().equals("L")){
+                nbLoisirA++;
+            }
+            if(item.getNature().equals("R")){
+                nbRestoA++;
+            }
+        }
+        for(Noeud item : voisinB){
+            if(item.getNature().equals("V")){
+                nbVilleB++;
+            }
+            if(item.getNature().equals("L")){
+                nbLoisirB++;
+            }
+            if(item.getNature().equals("R")){
+                nbRestoB++;
+            }
+        }
+        if(nbVilleA>nbVilleB){
+            resultat[0]=A+" est plus OUVERTE que "+B;
+        }
+        else{
+            resultat[0]=A+" est moins OUVERTE que "+B;
+        }
+        if(nbLoisirA>nbLoisirB){
+            resultat[1]=A+" est plus CULTURELLE que "+B;
+        }
+        else{
+            resultat[1]=A+" est moins CULTURELLE que "+B;
+        }
+        if(nbRestoA>nbRestoB){
+            resultat[2]=A+" est plus GASTRONOMIQUE que "+B;
+        }
+        else{
+            resultat[2]=A+" est moins GASTRONOMIQUE que "+B;
+        }
+        return resultat;
+    }
     
 }

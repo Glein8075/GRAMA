@@ -5,8 +5,16 @@
 package vue;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import metier.Fichier;
 import metier.Graphe;
+import metier.Noeud;
+import metier.Voisin;
+import modele.ModeleListNDistance;
+import modele.ModeleListNoeud;
+import modele.ModeleListVille;
+import modele.ModeleTableInfo;
 
 /**
  *
@@ -15,13 +23,52 @@ import metier.Graphe;
 public class Grama extends javax.swing.JFrame {
 
     private Graphe graphe;
+    private final List<List<Integer>> listeInfo = new ArrayList<>();
+    private final ModeleTableInfo modelTableInfo;
+    private final ModeleListNoeud modelListNoeud;
+    private final ModeleListNDistance modelListVoisin;
+    private final ModeleListVille modelListVille;
+    
     /**
      * Creates new form GRAMA
      */
     public Grama() {
+        modelTableInfo=new ModeleTableInfo(listeInfo);
+        modelListNoeud=new ModeleListNoeud();
+        modelListVoisin=new ModeleListNDistance();
+        modelListVille=new ModeleListVille();
         initComponents();
+        jListSommet.setModel(modelListNoeud);
+        jNbElement.setModel(modelTableInfo);
+        jListeNoeud.setModel(modelListNoeud);
+        jListVoisin.setModel(modelListVoisin);
+        jListVille1.setModel(modelListVille);
+        jListVille2.setModel(modelListVille);
     }
 
+    public void initModelTableInfo(){
+        List<Integer> listeNombre = new ArrayList<>();
+        listeNombre.add(graphe.getNbAutoroute());
+        listeNombre.add(graphe.getNbDepartemental());
+        listeNombre.add(graphe.getNbLoisir());
+        listeNombre.add(graphe.getNbNationnal());
+        listeNombre.add(graphe.getNbNoeud());
+        listeNombre.add(graphe.getNbRestaurant());
+        listeNombre.add(graphe.getNbVille());
+        modelTableInfo.ajouter(listeNombre);
+    }
+    
+    public void initModelListNoeud(){
+        for(Noeud item : graphe.getNoeud()){
+            modelListNoeud.ajouter(item.toString());
+        }
+    }
+    
+    public void initModelListVille(){
+        for(Noeud item : graphe.getVille()){
+            modelListVille.ajouter(item.getNom());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,13 +83,50 @@ public class Grama extends javax.swing.JFrame {
         listeMethode = new javax.swing.JComboBox<>();
         jExecuter = new javax.swing.JButton();
         detailGraphe = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jNbElement = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListeNoeud = new javax.swing.JList<>();
+        jPanel1 = new javax.swing.JPanel();
+        jTitrePageDetail = new javax.swing.JLabel();
+        jNDistance = new javax.swing.JDialog();
+        jPanelTitre = new javax.swing.JPanel();
+        jTitrePageDetail1 = new javax.swing.JLabel();
+        jParamètre = new javax.swing.JPanel();
+        jRadio1Distance = new javax.swing.JRadioButton();
+        jRadio2Distance = new javax.swing.JRadioButton();
+        jDistance = new javax.swing.JLabel();
+        jSommet = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListSommet = new javax.swing.JList<>();
+        jValider = new javax.swing.JButton();
+        jPanelRésultat = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListVoisin = new javax.swing.JList<>();
+        jLabelRésultat = new javax.swing.JLabel();
+        distance = new javax.swing.ButtonGroup();
+        jComparaison = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jTitrePageDetail2 = new javax.swing.JLabel();
+        jParamètre2 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jListVille1 = new javax.swing.JList<>();
+        jButtonValiderComp = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jListVille2 = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        jPanelRésultat2 = new javax.swing.JPanel();
+        jOuverte = new javax.swing.JLabel();
+        jGastronomie = new javax.swing.JLabel();
+        jCulture = new javax.swing.JLabel();
         jInfoFichier = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenu = new javax.swing.JMenu();
         jOuvrir = new javax.swing.JMenuItem();
 
-        listeMethode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "information sur le graphe", "voisin à un saut", "voisin à 2 saut", "comparaison entre 2 sommets", " " }));
+        listeMethode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "information sur le graphe", "voisin à n-distance", "comparaison entre 2 sommets", " " }));
 
         jExecuter.setText("Executer");
         jExecuter.addActionListener(new java.awt.event.ActionListener() {
@@ -72,24 +156,354 @@ public class Grama extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
         );
 
+        detailGraphe.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                detailGrapheWindowClosing(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(jNbElement);
+
+        jScrollPane2.setViewportView(jListeNoeud);
+
+        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+
+        jTitrePageDetail.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jTitrePageDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitrePageDetail.setText("Détail du Graphe");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(jTitrePageDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(133, 133, 133))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jTitrePageDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout detailGrapheLayout = new javax.swing.GroupLayout(detailGraphe.getContentPane());
         detailGraphe.getContentPane().setLayout(detailGrapheLayout);
         detailGrapheLayout.setHorizontalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(detailGrapheLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addGroup(detailGrapheLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         detailGrapheLayout.setVerticalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailGrapheLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+        );
+
+        jNDistance.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jNDistanceWindowClosing(evt);
+            }
+        });
+
+        jPanelTitre.setBackground(new java.awt.Color(255, 51, 51));
+
+        jTitrePageDetail1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jTitrePageDetail1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitrePageDetail1.setText("Voisin à n-distance");
+
+        javax.swing.GroupLayout jPanelTitreLayout = new javax.swing.GroupLayout(jPanelTitre);
+        jPanelTitre.setLayout(jPanelTitreLayout);
+        jPanelTitreLayout.setHorizontalGroup(
+            jPanelTitreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTitreLayout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addComponent(jTitrePageDetail1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(165, 165, 165))
+        );
+        jPanelTitreLayout.setVerticalGroup(
+            jPanelTitreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTitreLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jTitrePageDetail1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jParamètre.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Paramètre"));
+
+        distance.add(jRadio1Distance);
+        jRadio1Distance.setText("1");
+
+        distance.add(jRadio2Distance);
+        jRadio2Distance.setText("2");
+
+        jDistance.setText("Distance : ");
+
+        jSommet.setText("Sommet : ");
+
+        jScrollPane3.setViewportView(jListSommet);
+
+        jValider.setText("Valider");
+        jValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jValiderActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jParamètreLayout = new javax.swing.GroupLayout(jParamètre);
+        jParamètre.setLayout(jParamètreLayout);
+        jParamètreLayout.setHorizontalGroup(
+            jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètreLayout.createSequentialGroup()
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jValider)
+                        .addGap(64, 64, 64))
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRadio2Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadio1Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSommet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jParamètreLayout.setVerticalGroup(
+            jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSommet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addComponent(jRadio1Distance)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadio2Distance))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(jValider)
+                .addContainerGap())
+        );
+
+        jPanelRésultat.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Résultat"));
+
+        jScrollPane4.setViewportView(jListVoisin);
+
+        javax.swing.GroupLayout jPanelRésultatLayout = new javax.swing.GroupLayout(jPanelRésultat);
+        jPanelRésultat.setLayout(jPanelRésultatLayout);
+        jPanelRésultatLayout.setHorizontalGroup(
+            jPanelRésultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRésultatLayout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
+            .addGroup(jPanelRésultatLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelRésultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelRésultatLayout.setVerticalGroup(
+            jPanelRésultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRésultatLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabelRésultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
+        );
+
+        javax.swing.GroupLayout jNDistanceLayout = new javax.swing.GroupLayout(jNDistance.getContentPane());
+        jNDistance.getContentPane().setLayout(jNDistanceLayout);
+        jNDistanceLayout.setHorizontalGroup(
+            jNDistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jNDistanceLayout.createSequentialGroup()
+                .addComponent(jParamètre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelRésultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jNDistanceLayout.setVerticalGroup(
+            jNDistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jNDistanceLayout.createSequentialGroup()
+                .addComponent(jPanelTitre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jNDistanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jParamètre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelRésultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jComparaison.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jComparaisonWindowClosing(evt);
+            }
+        });
+
+        jPanel5.setBackground(new java.awt.Color(255, 51, 51));
+
+        jTitrePageDetail2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jTitrePageDetail2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitrePageDetail2.setText("Comparaison");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jTitrePageDetail2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addGap(170, 170, 170))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jTitrePageDetail2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jParamètre2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Paramètre"));
+
+        jScrollPane5.setViewportView(jListVille1);
+
+        jButtonValiderComp.setText("Valider");
+        jButtonValiderComp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonValiderCompActionPerformed(evt);
+            }
+        });
+
+        jScrollPane6.setViewportView(jListVille2);
+
+        jLabel2.setText("Choix des 2 villes à comparer");
+
+        javax.swing.GroupLayout jParamètre2Layout = new javax.swing.GroupLayout(jParamètre2);
+        jParamètre2.setLayout(jParamètre2Layout);
+        jParamètre2Layout.setHorizontalGroup(
+            jParamètre2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètre2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jParamètre2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jParamètre2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonValiderComp)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jParamètre2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jParamètre2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jParamètre2Layout.setVerticalGroup(
+            jParamètre2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètre2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jParamètre2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonValiderComp)
+                .addContainerGap())
+        );
+
+        jPanelRésultat2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Résultat"));
+
+        javax.swing.GroupLayout jPanelRésultat2Layout = new javax.swing.GroupLayout(jPanelRésultat2);
+        jPanelRésultat2.setLayout(jPanelRésultat2Layout);
+        jPanelRésultat2Layout.setHorizontalGroup(
+            jPanelRésultat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRésultat2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelRésultat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jOuverte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jGastronomie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCulture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelRésultat2Layout.setVerticalGroup(
+            jPanelRésultat2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRésultat2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jOuverte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(jCulture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(jGastronomie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48))
+        );
+
+        javax.swing.GroupLayout jComparaisonLayout = new javax.swing.GroupLayout(jComparaison.getContentPane());
+        jComparaison.getContentPane().setLayout(jComparaisonLayout);
+        jComparaisonLayout.setHorizontalGroup(
+            jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jComparaisonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jParamètre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelRésultat2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jComparaisonLayout.setVerticalGroup(
+            jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jComparaisonLayout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jParamètre2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelRésultat2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Grama");
 
+        jInfoFichier.setText("Veuillez ouvrir le fichier contenant les sommets du graphe");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Bienvenue de GRAMA");
 
-        jInfoFichier.setText("Veuillez ouvrir le fichier contenant les sommets du graphe");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
 
         jMenu.setText("Menu");
 
@@ -109,24 +523,19 @@ public class Grama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(jInfoFichier))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(jLabel1)))
-                .addContainerGap(98, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(jInfoFichier)
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addGap(84, 84, 84)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
                 .addComponent(jInfoFichier)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,6 +547,9 @@ public class Grama extends javax.swing.JFrame {
         try {
             graphe = new Graphe(Fichier.DécoupageFichier(jFileChooser.getSelectedFile().getName()));
             jInfoFichier.setText("Fichier "+jFileChooser.getSelectedFile().getName()+" chargé");
+            this.initModelTableInfo();
+            this.initModelListNoeud();
+            this.initModelListVille();
         } catch (IOException ex) {
             jInfoFichier.setText("Aucun fichier trouvé");
         }
@@ -150,21 +562,63 @@ public class Grama extends javax.swing.JFrame {
 
     private void jExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExecuterActionPerformed
         // TODO add your handling code here:
-        if(((String)listeMethode.getSelectedItem()).equals("information sur le graphe")){
+        if(listeMethode.getSelectedItem().equals("information sur le graphe")){
             detailGraphe.setVisible(true);
             detailGraphe.pack();
         }
-        else if(((String)listeMethode.getSelectedItem()).equals("voisin à un saut")){
-        
+        else if(listeMethode.getSelectedItem().equals("voisin à n-distance")){
+            jNDistance.setVisible(true);
+            jNDistance.pack();
         }
-        else if(((String)listeMethode.getSelectedItem()).equals("voisin à 2 saut")){
-           
-        }
-        else if(((String)listeMethode.getSelectedItem()).equals("comparaison entre 2 sommets")){
-            
+        else if(listeMethode.getSelectedItem().equals("comparaison entre 2 sommets")){
+            jComparaison.setVisible(true);
+            jComparaison.pack();
         }
         ecrantPrincipal.setVisible(false);
     }//GEN-LAST:event_jExecuterActionPerformed
+
+    private void detailGrapheWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_detailGrapheWindowClosing
+        // TODO add your handling code here:
+        ecrantPrincipal.setVisible(true);
+    }//GEN-LAST:event_detailGrapheWindowClosing
+
+    private void jNDistanceWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jNDistanceWindowClosing
+        // TODO add your handling code here:
+        ecrantPrincipal.setVisible(true);
+    }//GEN-LAST:event_jNDistanceWindowClosing
+
+    private void jValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValiderActionPerformed
+        // TODO add your handling code here:
+        if(jRadio1Distance.isSelected()){
+            modelListVoisin.vider();
+            List<Voisin> listeVoisin=graphe.unDistance(jListSommet.getSelectedValue());
+            jLabelRésultat.setText("Voisin(s) du sommet "+jListSommet.getSelectedValue()+" à 1-distance :");
+            for(Voisin item : listeVoisin){
+                modelListVoisin.ajouter(item.getDestination().toString());
+            }
+        }
+        else if (jRadio2Distance.isSelected()){
+            modelListVoisin.vider();
+            List<Noeud> listeVoisin=graphe.deuxDistance(jListSommet.getSelectedValue());
+            jLabelRésultat.setText("Voisin(s) du sommet "+jListSommet.getSelectedValue()+" à 2-distance :");
+            for(Noeud item : listeVoisin){
+                modelListVoisin.ajouter(item.toString());
+            }
+        }
+    }//GEN-LAST:event_jValiderActionPerformed
+
+    private void jComparaisonWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jComparaisonWindowClosing
+        // TODO add your handling code here:
+        ecrantPrincipal.setVisible(true);
+    }//GEN-LAST:event_jComparaisonWindowClosing
+
+    private void jButtonValiderCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderCompActionPerformed
+        // TODO add your handling code here:
+        String[] resultat = graphe.comparaison(jListVille1.getSelectedValue(), jListVille2.getSelectedValue());
+        jOuverte.setText(resultat[0]);
+        jCulture.setText(resultat[1]);
+        jGastronomie.setText(resultat[2]);
+    }//GEN-LAST:event_jButtonValiderCompActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,14 +658,51 @@ public class Grama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog detailGraphe;
+    private javax.swing.ButtonGroup distance;
     private javax.swing.JDialog ecrantPrincipal;
+    private javax.swing.JButton jButtonValiderComp;
+    private javax.swing.JDialog jComparaison;
+    private javax.swing.JLabel jCulture;
+    private javax.swing.JLabel jDistance;
     private javax.swing.JButton jExecuter;
     private javax.swing.JFileChooser jFileChooser;
+    private javax.swing.JLabel jGastronomie;
     private javax.swing.JLabel jInfoFichier;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelRésultat;
+    private javax.swing.JList<String> jListSommet;
+    private javax.swing.JList<String> jListVille1;
+    private javax.swing.JList<String> jListVille2;
+    private javax.swing.JList<String> jListVoisin;
+    private javax.swing.JList<String> jListeNoeud;
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JDialog jNDistance;
+    private javax.swing.JTable jNbElement;
+    private javax.swing.JLabel jOuverte;
     private javax.swing.JMenuItem jOuvrir;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelRésultat;
+    private javax.swing.JPanel jPanelRésultat2;
+    private javax.swing.JPanel jPanelTitre;
+    private javax.swing.JPanel jParamètre;
+    private javax.swing.JPanel jParamètre2;
+    private javax.swing.JRadioButton jRadio1Distance;
+    private javax.swing.JRadioButton jRadio2Distance;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JLabel jSommet;
+    private javax.swing.JLabel jTitrePageDetail;
+    private javax.swing.JLabel jTitrePageDetail1;
+    private javax.swing.JLabel jTitrePageDetail2;
+    private javax.swing.JButton jValider;
     private javax.swing.JComboBox<String> listeMethode;
     // End of variables declaration//GEN-END:variables
 }
