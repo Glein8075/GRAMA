@@ -64,11 +64,17 @@ public class Voisin /*implements Iterator*/{
      * @param o instance de la classe Object
      * @return "true" si les 2 objets ont les mêmes attribues, sinon "false"
      */
+    @Override
     public boolean equals(Object o){
         if(!(o instanceof Voisin)){
             return false;
         }
-        Voisin v = (Voisin) o;
+        Voisin v = (Voisin)o;
         return this.destination.equals(v.destination) && this.route.equals(v.route);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(destination,route);
     }
 }

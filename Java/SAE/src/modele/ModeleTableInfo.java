@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModeleTableInfo extends AbstractTableModel{
     
-    private final String[] nomColonne = new String[]{"nombre de ville","nombre de restaurant","nombre de loisir","nombre de départementale","nombre de nationnale","nombre d'autoroute"};
+    private final String[] nomColonne = new String[]{"nombre de noeud","nombre de ville","nombre de restaurant","nombre de loisir","nombre de départementale","nombre de nationnale","nombre d'autoroute"};
     private List<List<Integer>> listeInfo = new ArrayList<>();
     
     public ModeleTableInfo(List<List<Integer>> liste){

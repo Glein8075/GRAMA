@@ -243,12 +243,18 @@ public class Graphe {
     /**
      * obtention de la liste tout les voisins à 1-distance d'un sommet entré en paramettre
      * @param sommet instance de la classe Noeud
-     * @return liste des sommets correspondant aux voisins à 1-distance
+     * @return liste des sommets correspondant aux voisins à 1-distance sans doublons
      */
-    public List<Voisin> unDistance(String sommet){
+    public List<Noeud> unDistance(String sommet){
+        List<Noeud> listeVoisin = new ArrayList<>();
         for(Map.Entry<Noeud, List<Voisin>> item : parcours ){
             if(item.getKey().toString().equals(sommet)){
-                return graphe.get(item.getKey());
+                for(Voisin voisin : graphe.get(item.getKey())){
+                    if(!listeVoisin.contains(voisin.getDestination())){
+                        listeVoisin.add(voisin.getDestination());
+                    }
+                }
+            return listeVoisin;
             }
         }  
         return null;
@@ -257,9 +263,10 @@ public class Graphe {
     /**
      * Liste tout les voisins à 2-distance d'un sommet entré en paramettre
      * @param sommet instance de la classe Noeud
-     * @return liste des sommets correspondant aux voisins à 2-distances
+     * @return liste des sommets correspondant aux voisins à 2-distances sans doublons
      */
     public List<Noeud> deuxDistance(String sommet){
+        
         for(Map.Entry<Noeud, List<Voisin>> item : parcours ){
             if(item.getKey().toString().equals(sommet)){
                 List<Noeud> deuxdist = new ArrayList<>();
@@ -282,6 +289,12 @@ public class Graphe {
         return null;
     }
     
+    /**
+     * méthode de comparaison de 2 sommets par rapport au nombre de ville, restaurant et loisir voisin
+     * @param A sommet du graphe
+     * @param B un autre sommet du graphe
+     * @return liste de resultat de la comparaison
+     */
     public String[] comparaison(String A, String B){
         String[] resultat = new String[3];
         List<Noeud> voisinA = this.deuxDistance("V, "+A);
@@ -317,20 +330,29 @@ public class Graphe {
         if(nbVilleA>nbVilleB){
             resultat[0]=A+" est plus OUVERTE que "+B;
         }
-        else{
+        else if(nbVilleA<nbVilleB){
             resultat[0]=A+" est moins OUVERTE que "+B;
+        }
+        else{
+            resultat[0]=A+" est autant OUVERTE que "+B;
         }
         if(nbLoisirA>nbLoisirB){
             resultat[1]=A+" est plus CULTURELLE que "+B;
         }
-        else{
+        else if(nbLoisirA<nbLoisirB){
             resultat[1]=A+" est moins CULTURELLE que "+B;
+        }
+        else{
+            resultat[1]=A+" est autant CULTURELLE que "+B;
         }
         if(nbRestoA>nbRestoB){
             resultat[2]=A+" est plus GASTRONOMIQUE que "+B;
         }
-        else{
+        else if(nbRestoA>nbRestoB){
             resultat[2]=A+" est moins GASTRONOMIQUE que "+B;
+        }
+        else{
+            resultat[2]=A+" est autant GASTRONOMIQUE que "+B;
         }
         return resultat;
     }
