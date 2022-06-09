@@ -19,7 +19,7 @@ import modele.ModeleTableInfo;
  *
  * @author ASUS
  */
-public class Grama extends javax.swing.JFrame {
+public class GramaSecours extends javax.swing.JFrame {
 
     private Graphe graphe;
     private final List<List<Integer>> listeInfo = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Grama extends javax.swing.JFrame {
     /**
      * Creates new form GRAMA
      */
-    public Grama() {
+    public GramaSecours() {
         modelTableInfo=new ModeleTableInfo(listeInfo);
         modelListNoeud=new ModeleListNoeud();
         modelListVoisin=new ModeleListNDistance();
@@ -574,9 +574,6 @@ public class Grama extends javax.swing.JFrame {
         ecranPrincipal.setVisible(true);
         ecranPrincipal.pack();
         ecranPrincipal.setSize(500,500);
-        /*DrawGraphic g = new DrawGraphic(graphe);
-        ecrantPrincipal.add(g);
-        g.setSize(500, 500);*/
     }//GEN-LAST:event_jOuvrirActionPerformed
 
     private void jExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExecuterActionPerformed
@@ -656,21 +653,23 @@ public class Grama extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GramaSecours.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GramaSecours.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GramaSecours.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GramaSecours.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Grama().setVisible(true);
+                new GramaSecours().setVisible(true);
             }
         });
     }

@@ -221,7 +221,7 @@ public class Graphe {
      * @return nombre d'arête de nature "N"
      */
     public int getNbAutoroute(){
-        List<Noeud> liste = new ArrayList<>();
+        List<Arete> liste = new ArrayList<>();
         Iterator<Voisin> itv;
         Voisin v;
         int nbAutoroute =0;
@@ -229,11 +229,11 @@ public class Graphe {
             itv=entree.getValue().iterator();
             while(itv.hasNext()){
                 v=itv.next();
-                if (!liste.contains(v.getDestination())){
+                if (!liste.contains(v.getRoute())){
                     if(v.getRoute().getType().equals("A")){
                         nbAutoroute++;
                     }
-                    liste.add(v.getDestination());
+                    liste.add(v.getRoute());
                 }                
             }		
         }

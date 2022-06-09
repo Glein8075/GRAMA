@@ -7,6 +7,8 @@ package vue;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +21,8 @@ import metier.Noeud;
 import metier.Voisin;
 
 /**
- *
- * @author ASUS
+ * Classe pour dessiner le graphe
+ * @author Valentin SEGALLA, Ilyes BEIRADE
  */
 public class DrawGraphic extends JPanel{
 
@@ -44,17 +46,39 @@ public class DrawGraphic extends JPanel{
         Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.getSet();
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             cle = item.getKey();
-            x+=30;
-            y=nb.nextInt(100);
+            x+=27;
+            y=30+nb.nextInt(500);
             graph.drawString(cle.toString(), x, y);
             coordonnee = new Integer[]{x,y};
+            while(listeCoordonnee.containsValue(coordonnee)){
+                coordonnee = new Integer[]{x,y};
+            }
             listeCoordonnee.put(cle, coordonnee);
         }
         int i =0;
+        List<Noeud> noeudTraite = new ArrayList<>();
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             for(Voisin voisin : item.getValue()){
-                graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1], listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[0]);
+                if(!noeudTraite.contains(voisin.getDestination())){
+                    if(voisin.getRoute().getType().equals("D")){
+                    graph.setColor(Color.yellow);
+                    graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
+                            listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                    }
+                    else if(voisin.getRoute().getType().equals("N")){
+                        graph.setColor(Color.GREEN);
+                        graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
+                                listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                    }
+                    else{
+                        graph.setColor(Color.BLUE);
+                        graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
+                                listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                    }
+                }
+                
             }
+            noeudTraite.add(item.getKey());
             i++;
         }
         
