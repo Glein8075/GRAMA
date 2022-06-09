@@ -21,7 +21,7 @@ import modele.ModeleTableInfo;
  * classe correspondant à l'interface graphique de l'application
  * @author Valentin SEGALLA, Ilyes BEIRADE
  */
-public class Grama1 extends javax.swing.JFrame {
+public class Grama extends javax.swing.JFrame {
 
     private Graphe graphe;
     private final List<List<Integer>> listeInfo = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Grama1 extends javax.swing.JFrame {
     /**
      * Creates new form GRAMA
      */
-    public Grama1() {
+    public Grama() {
         modelTableInfo=new ModeleTableInfo(listeInfo);
         modelListNoeud=new ModeleListNoeud();
         modelListVoisin=new ModeleListNDistance();
@@ -525,7 +525,6 @@ public class Grama1 extends javax.swing.JFrame {
         });
 
         jLabelCarte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/carte-france_redimetionné.png"))); // NOI18N
-        jLabelCarte.setText("jLabel1");
 
         jMenu.setText("Menu");
 
@@ -546,7 +545,7 @@ public class Grama1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabelCarte, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -566,8 +565,8 @@ public class Grama1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jInfoFichier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCarte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listeMethode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jExecuter))
@@ -663,14 +662,18 @@ public class Grama1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Grama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Grama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Grama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Grama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Grama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -679,7 +682,7 @@ public class Grama1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Grama1().setVisible(true);
+                new Grama().setVisible(true);
             }
         });
     }

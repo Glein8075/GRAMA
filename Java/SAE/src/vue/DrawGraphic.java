@@ -56,24 +56,46 @@ public class DrawGraphic extends JPanel{
             listeCoordonnee.put(cle, coordonnee);
         }
         int i =0;
+        int x1;
+        int x2;
+        int y1;
+        int y2;
+        int xMilieu;
+        int yMilieu;
+
         List<Noeud> noeudTraite = new ArrayList<>();
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             for(Voisin voisin : item.getValue()){
+                //coordonnée du noeud de départ
+                x1=listeCoordonnee.get(item.getKey())[0];
+                y1=listeCoordonnee.get(item.getKey())[1];
+                //coordonnée du noeud d'arrivée
+                y2=listeCoordonnee.get(voisin.getDestination())[1];
+                x2=listeCoordonnee.get(voisin.getDestination())[0];
+                xMilieu=(x1+x2)/2;
+                yMilieu=(y1+y2)/2;
+
                 if(!noeudTraite.contains(voisin.getDestination())){
                     if(voisin.getRoute().getType().equals("D")){
-                    graph.setColor(Color.yellow);
-                    graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
-                            listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                    graph.setColor(Color.RED);
+                    graph.drawLine(x1,y1,x2,y2);
+                    graph.setColor(Color.BLACK);
+                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
+
                     }
                     else if(voisin.getRoute().getType().equals("N")){
                         graph.setColor(Color.GREEN);
-                        graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
-                                listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                        graph.drawLine(x1+5,y1,x2+5,y2);
+                        graph.setColor(Color.BLACK);
+                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
+
                     }
-                    else{
+                    else if(voisin.getRoute().getType().equals("A")){
                         graph.setColor(Color.BLUE);
-                        graph.drawLine(listeCoordonnee.get(item.getKey())[0], listeCoordonnee.get(item.getKey())[1],
-                                listeCoordonnee.get(voisin.getDestination())[0], listeCoordonnee.get(voisin.getDestination())[1]);
+                        graph.drawLine(x1-5,y1,x2-5,y2);
+                        graph.setColor(Color.BLACK);
+                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
+
                     }
                 }
                 

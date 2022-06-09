@@ -277,7 +277,7 @@ public class Graphe {
                     Iterator<Voisin> itDeuxSaut = graphe.get(itUnSaut.next().getDestination()).iterator();
                     while(itDeuxSaut.hasNext()){
                         v=itDeuxSaut.next();
-                        if(!(v.getDestination().equals(item))&&!(deuxdist.contains(v.getDestination()))&&!(listVoisin.contains(v))){
+                        if(!(v.getDestination().equals(item.getKey()))&&!(deuxdist.contains(v.getDestination()))&&!(listVoisin.contains(v))){
                             deuxdist.add(v.getDestination());
                         }
                     }
