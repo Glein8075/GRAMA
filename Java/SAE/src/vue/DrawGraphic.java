@@ -28,12 +28,19 @@ public class DrawGraphic extends JPanel{
 
     private final Graphe graphe;
     
+    /**
+     * constructeur de la classe
+     * @param g 
+     */
     public DrawGraphic(Graphe g){
          super();
          graphe = g;
-         setBorder(BorderFactory.createLineBorder(Color.black)); 
     }
     
+    /**
+     * methode permettant de dessiner le graphe
+     * @param g Objet de la classe Graphics
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D graph = (Graphics2D)g;

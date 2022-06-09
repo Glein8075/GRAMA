@@ -31,7 +31,7 @@ public class Grama extends javax.swing.JFrame {
     private final ModeleListVille modelListVille;
     
     /**
-     * Creates new form GRAMA
+     * constructeur de la jFrame
      */
     public Grama() {
         modelTableInfo=new ModeleTableInfo(listeInfo);
@@ -51,6 +51,9 @@ public class Grama extends javax.swing.JFrame {
         jExecuter.setVisible(false);
     }
 
+    /**
+     * methode qui initialise le modele pour la jtable info
+     */
     public void initModelTableInfo(){
         List<Integer> listeNombre = new ArrayList<>();
         listeNombre.add(graphe.getNbNoeud());
@@ -63,12 +66,18 @@ public class Grama extends javax.swing.JFrame {
         modelTableInfo.ajouter(listeNombre);
     }
     
+    /**
+     * methode qui initialise le modele pour la jliste de noeud
+     */
     public void initModelListNoeud(){
         for(Noeud item : graphe.getNoeud()){
             modelListNoeud.ajouter(item.toString());
         }
     }
     
+    /**
+     * methode qui initialise le modele pour la jList de ville
+     */
     public void initModelListVille(){
         for(Noeud item : graphe.getVille()){
             modelListVille.ajouter(item.getNom());
@@ -112,7 +121,7 @@ public class Grama extends javax.swing.JFrame {
         jLabelRésultat = new javax.swing.JLabel();
         distance = new javax.swing.ButtonGroup();
         jComparaison = new javax.swing.JDialog();
-        jPanel5 = new javax.swing.JPanel();
+        jTitreComparaison = new javax.swing.JPanel();
         jTitrePageComparaison = new javax.swing.JLabel();
         jParamètre2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -272,22 +281,23 @@ public class Grama extends javax.swing.JFrame {
         jParamètreLayout.setHorizontalGroup(
             jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jParamètreLayout.createSequentialGroup()
-                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jValider)
+                .addContainerGap(189, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jParamètreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(jRadio2Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadio1Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jParamètreLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jValider)
-                        .addGap(64, 64, 64))
+                        .addComponent(jSommet, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                        .addContainerGap(54, Short.MAX_VALUE))
                     .addGroup(jParamètreLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                            .addComponent(jRadio2Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadio1Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSommet, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jParamètreLayout.setVerticalGroup(
             jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +333,7 @@ public class Grama extends javax.swing.JFrame {
             .addGroup(jPanelRésultatLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanelRésultatLayout.setVerticalGroup(
             jPanelRésultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,24 +366,24 @@ public class Grama extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 51, 51));
+        jTitreComparaison.setBackground(new java.awt.Color(255, 51, 51));
 
         jTitrePageComparaison.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jTitrePageComparaison.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTitrePageComparaison.setText("Comparaison");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout jTitreComparaisonLayout = new javax.swing.GroupLayout(jTitreComparaison);
+        jTitreComparaison.setLayout(jTitreComparaisonLayout);
+        jTitreComparaisonLayout.setHorizontalGroup(
+            jTitreComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTitreComparaisonLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jTitrePageComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jTitrePageComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                 .addGap(170, 170, 170))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jTitreComparaisonLayout.setVerticalGroup(
+            jTitreComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTitreComparaisonLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jTitrePageComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -461,7 +471,7 @@ public class Grama extends javax.swing.JFrame {
         jComparaison.getContentPane().setLayout(jComparaisonLayout);
         jComparaisonLayout.setHorizontalGroup(
             jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTitreComparaison, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jComparaisonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jParamètre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -472,7 +482,7 @@ public class Grama extends javax.swing.JFrame {
         jComparaisonLayout.setVerticalGroup(
             jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jComparaisonLayout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTitreComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jParamètre2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -545,7 +555,6 @@ public class Grama extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -556,7 +565,8 @@ public class Grama extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jInfoFichier)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,7 +575,7 @@ public class Grama extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jInfoFichier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jLabelCarte, javax.swing.GroupLayout.PREFERRED_SIZE, 392, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listeMethode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -720,7 +730,6 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JMenuItem jOuvrir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelRésultat;
     private javax.swing.JPanel jPanelRésultat2;
     private javax.swing.JPanel jPanelTitre;
@@ -735,6 +744,7 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel jSommet;
+    private javax.swing.JPanel jTitreComparaison;
     private javax.swing.JLabel jTitrePageComparaison;
     private javax.swing.JLabel jTitrePageDetail;
     private javax.swing.JLabel jTitrePageNDistance;

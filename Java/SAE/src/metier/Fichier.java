@@ -14,10 +14,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- * @author ASUS
+ * classe contenant la methode de decoupe de fichier source du graphe
+ * @author Valentin SEGALLA, Ilyes BEIRADE
  */
 public class Fichier {
+    
+    
+    /**
+     * methode de decoupage de fichier source du graphe
+     * @param nomFichier nom du fichier source du graphe
+     * @return un HashMap contenant les noeuds associe a leur voisin du graphe
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public static Map<Noeud,List<Voisin>> DécoupageFichier(String nomFichier) throws FileNotFoundException, IOException{
         Map<Noeud,List<Voisin>> graphe = new HashMap<>();
         
