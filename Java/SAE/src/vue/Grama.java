@@ -591,7 +591,9 @@ public class Grama extends javax.swing.JFrame {
                         .addGap(80, 80, 80)
                         .addComponent(jInfoFichier)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabelCarte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabelCarte)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -648,7 +650,7 @@ public class Grama extends javax.swing.JFrame {
             Dimension dim = new Dimension(300, 300);
             test.setPreferredSize(dim);
             jGraphe.setContentPane(test);
-            jGraphe.setSize(900, 600);
+            jGraphe.setSize(1200, 900);
             jGraphe.setVisible(true);
         }
     }//GEN-LAST:event_jExecuterActionPerformed

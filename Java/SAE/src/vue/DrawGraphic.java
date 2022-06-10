@@ -45,7 +45,7 @@ public class DrawGraphic extends JPanel{
     protected void paintComponent(Graphics g) {
         Graphics2D graph = (Graphics2D)g;
         Noeud cle;
-        int x = 0;
+        int x = 20;
         int y=30;
         Random nb = new Random();
         Integer[] coordonnee;
@@ -53,24 +53,26 @@ public class DrawGraphic extends JPanel{
         Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.getSet();
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             cle = item.getKey();
-            if(x<=700 && y<=30){
-                x+=100;
-            }
-            else if(x>700 && y<=500){
-                y+=50;
-            }
-            else if(x>100 && y>500){
-                x-=100;
-            }
-            else if(x<=100 && y>130){
-                y-=50;
-            }
-            graph.drawString(cle.toString(), x, y);
+            
+            graph.drawOval(x, y, 5, 5);
+            //graph.drawString(cle.toString(), x, y);
             coordonnee = new Integer[]{x,y};
             while(listeCoordonnee.containsValue(coordonnee)){
                 coordonnee = new Integer[]{x,y};
             }
             listeCoordonnee.put(cle, coordonnee);
+            if(x<=1100 && y<=30){
+                x+=100;
+            }
+            else if(x>1000 && y<=600){
+                y+=50;
+            }
+            else if(x>30 && y>600){
+                x-=100;
+            }
+            else if(x<=30 && y>130){
+                y-=50;
+            }
         }
         int i =0;
         int x1;
@@ -93,26 +95,25 @@ public class DrawGraphic extends JPanel{
                 yMilieu=(y1+y2)/2;
 
                 if(!noeudTraite.contains(voisin.getDestination())){
-                    if(voisin.getRoute().getType().equals("D")){
-                    graph.setColor(Color.RED);
-                    graph.drawLine(x1,y1,x2,y2);
-                    graph.setColor(Color.BLACK);
-                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
-
-                    }
-                    else if(voisin.getRoute().getType().equals("N")){
-                        graph.setColor(Color.GREEN);
-                        graph.drawLine(x1+5,y1,x2+5,y2);
-                        graph.setColor(Color.BLACK);
-                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
-
-                    }
-                    else if(voisin.getRoute().getType().equals("A")){
-                        graph.setColor(Color.BLUE);
-                        graph.drawLine(x1-5,y1,x2-5,y2);
-                        graph.setColor(Color.BLACK);
-                        graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
-
+                    switch (voisin.getRoute().getType()) {
+                        case "D":
+                            graph.setColor(Color.RED);
+                            graph.drawLine(x1,y1,x2,y2);
+                            
+                            graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu+5);
+                            break;
+                        case "N":
+                            graph.setColor(Color.GREEN);
+                            graph.drawLine(x1+5,y1,x2+5,y2);
+                            
+                            graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu);
+                            break;
+                        case "A":
+                            graph.setColor(Color.BLUE);
+                            graph.drawLine(x1-5,y1,x2-5,y2);
+                            
+                            graph.drawString(voisin.getRoute().toString(),xMilieu,yMilieu-5);
+                            break;
                     }
                 }
                 
