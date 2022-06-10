@@ -45,16 +45,26 @@ public class DrawGraphic extends JPanel{
     protected void paintComponent(Graphics g) {
         Graphics2D graph = (Graphics2D)g;
         Noeud cle;
-        int x = 10;
-        int y;
+        int x = 0;
+        int y=30;
         Random nb = new Random();
         Integer[] coordonnee;
         Map<Noeud,Integer[]> listeCoordonnee = new HashMap<>();
         Set<Map.Entry<Noeud,List<Voisin>>> parcours = graphe.getSet();
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             cle = item.getKey();
-            x+=27;
-            y=30+nb.nextInt(500);
+            if(x<=700 && y<=30){
+                x+=100;
+            }
+            else if(x>700 && y<=500){
+                y+=50;
+            }
+            else if(x>100 && y>500){
+                x-=100;
+            }
+            else if(x<=100 && y>130){
+                y-=50;
+            }
             graph.drawString(cle.toString(), x, y);
             coordonnee = new Integer[]{x,y};
             while(listeCoordonnee.containsValue(coordonnee)){

@@ -193,6 +193,21 @@ public class Graphe {
     }
     
     /**
+     * methode pour obtenir la liste des Aretes
+     * @return liste d'arete
+     */
+    public List<Arete> getArete(){
+        List<Arete> listeArete = new ArrayList<>();
+        for(Map.Entry<Noeud,List<Voisin>> item : parcours){
+            for(Voisin voisin : item.getValue()){
+                if(!listeArete.contains(voisin.getRoute())){
+                    listeArete.add(voisin.getRoute());
+                }
+            }
+        }
+        return listeArete;
+    }
+    /**
      * obtention du nombre de Nationnale dans le graphe.
      * @return nombre d'arête de nature "N"
      */

@@ -79,4 +79,6 @@ public class Noeud {
         Noeud n = (Noeud)o;
         return this.nature.equals(n.nature) && this.nom.equals(n.nom);
     }
+    
+    
 }

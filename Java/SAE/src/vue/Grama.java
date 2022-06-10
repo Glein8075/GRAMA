@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import metier.Arete;
 import metier.Fichier;
 import metier.Graphe;
 import metier.Noeud;
 import modele.ModeleListNDistance;
 import modele.ModeleListNoeud;
 import modele.ModeleListVille;
+import modele.ModeleTableArete;
 import modele.ModeleTableInfo;
 
 /**
@@ -29,6 +31,7 @@ public class Grama extends javax.swing.JFrame {
     private final ModeleListNoeud modelListNoeud;
     private final ModeleListNDistance modelListVoisin;
     private final ModeleListVille modelListVille;
+    private final ModeleTableArete modelTableArete;
     
     /**
      * constructeur de la jFrame
@@ -38,6 +41,7 @@ public class Grama extends javax.swing.JFrame {
         modelListNoeud=new ModeleListNoeud();
         modelListVoisin=new ModeleListNDistance();
         modelListVille=new ModeleListVille();
+        modelTableArete=new ModeleTableArete();
         
         initComponents();
         jListSommet.setModel(modelListNoeud);
@@ -47,6 +51,7 @@ public class Grama extends javax.swing.JFrame {
         jListVoisin.setModel(modelListVoisin);
         jListVille1.setModel(modelListVille);
         jListVille2.setModel(modelListVille);
+        jTableArete.setModel(modelTableArete);
         listeMethode.setVisible(false);
         jExecuter.setVisible(false);
     }
@@ -75,6 +80,12 @@ public class Grama extends javax.swing.JFrame {
         }
     }
     
+    public void initModelTableArete(){
+        List<Arete> listeArete = graphe.getArete();
+        for(Arete item : listeArete){
+            modelTableArete.ajouter(item);
+        }
+    }
     /**
      * methode qui initialise le modele pour la jList de ville
      */
@@ -103,6 +114,9 @@ public class Grama extends javax.swing.JFrame {
         jTitrePageDetail = new javax.swing.JLabel();
         jIcon = new javax.swing.JLabel();
         jLabelInfo = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTableArete = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jNDistance = new javax.swing.JDialog();
         jPanelTitre = new javax.swing.JPanel();
         jTitrePageNDistance = new javax.swing.JLabel();
@@ -187,43 +201,54 @@ public class Grama extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTitrePageDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jLabelInfo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelInfo.setText("Liste des noeuds composant le graphe");
+
+        jScrollPane7.setViewportView(jTableArete);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Liste des arêtes reliant les noeuds du graphe");
 
         javax.swing.GroupLayout detailGrapheLayout = new javax.swing.GroupLayout(detailGraphe.getContentPane());
         detailGraphe.getContentPane().setLayout(detailGrapheLayout);
         detailGrapheLayout.setHorizontalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailGrapheLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(259, 259, 259))
             .addGroup(detailGrapheLayout.createSequentialGroup()
                 .addGroup(detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(detailGrapheLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
+                        .addGap(265, 265, 265)
+                        .addComponent(jLabelInfo))
                     .addGroup(detailGrapheLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(detailGrapheLayout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addComponent(jLabelInfo)
+                        .addGroup(detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         detailGrapheLayout.setVerticalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailGrapheLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabelInfo)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelInfo)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanelTitre.setBackground(new java.awt.Color(255, 51, 51));
@@ -596,6 +621,7 @@ public class Grama extends javax.swing.JFrame {
             this.initModelTableInfo();
             this.initModelListNoeud();
             this.initModelListVille();
+            this.initModelTableArete();
             listeMethode.setVisible(true);
             jExecuter.setVisible(true);
         } catch (IOException ex) {
@@ -712,6 +738,7 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JDialog jGraphe;
     private javax.swing.JLabel jIcon;
     private javax.swing.JLabel jInfoFichier;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCarte;
     private javax.swing.JLabel jLabelIndication;
     private javax.swing.JLabel jLabelInfo;
@@ -743,7 +770,9 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel jSommet;
+    private javax.swing.JTable jTableArete;
     private javax.swing.JPanel jTitreComparaison;
     private javax.swing.JLabel jTitrePageComparaison;
     private javax.swing.JLabel jTitrePageDetail;

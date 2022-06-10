@@ -4,7 +4,10 @@
  */
 package modele;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import metier.Arete;
 
 /**
  *
@@ -12,26 +15,37 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModeleTableArete extends AbstractTableModel{
     
-    private final String[] nomColonne = new String[]{"autoroute","départementale","nationnale"};
-
-            
+    private final String[] nomColonne = new String[]{"Type","Distance"};
+    private final List<Arete> listeArete = new ArrayList<>();
+           
+    
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return listeArete.size();
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return nomColonne.length;
     }
 
     @Override
     public Object getValueAt(int arg0, int arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch(arg1){
+            case 0 : return listeArete.get(arg0).getType();
+            case 1 : return listeArete.get(arg0).getDistance();
+            
+        }
+        return null;
     }
     
     @Override
     public String getColumnName(int col){
         return nomColonne[col];
+    }
+    
+    public void ajouter(Arete a){
+        listeArete.add(a);
+        this.fireTableRowsInserted(0, listeArete.size());
     }
 }
