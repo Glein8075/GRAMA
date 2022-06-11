@@ -647,10 +647,8 @@ public class Grama extends javax.swing.JFrame {
         }
         else if(listeMethode.getSelectedItem().equals("afficher le graphe")){
             DrawGraphic test = new DrawGraphic(graphe);
-            Dimension dim = new Dimension(300, 300);
-            test.setPreferredSize(dim);
             jGraphe.setContentPane(test);
-            jGraphe.setSize(1200, 900);
+            jGraphe.setSize(1250, 800);
             jGraphe.setVisible(true);
         }
     }//GEN-LAST:event_jExecuterActionPerformed
