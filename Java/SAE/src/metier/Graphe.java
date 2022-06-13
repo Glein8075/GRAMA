@@ -53,7 +53,7 @@ public class Graphe {
     }
     
     /**
-     * affichage de tout les noeuds contenus le graphe.
+     * obtention de tout les noeuds contenus le graphe.
      * @return liste des noeuds
      */
     public List<Noeud> getNoeud(){
@@ -90,7 +90,7 @@ public class Graphe {
     
     /**
      * obtention des villes du graphe.
-     * @return 
+     * @return liste contenant les noeuds qui sont des villes
      */
     public List<Noeud> getVille(){
         List<Noeud> listVille = new ArrayList<>();
@@ -122,7 +122,7 @@ public class Graphe {
     
     /**
      * obtention des loisirs du graphe
-     * @return 
+     * @return liste contenant les noeuds qui sont des loisirs
      */
     public List<Noeud> getLoisir(){
         List<Noeud> listLoisir = new ArrayList<>();
@@ -154,7 +154,7 @@ public class Graphe {
     
     /**
      * obtention des restaurants du graphe.
-     * @return 
+     * @return liste contenant les noeuds qui sont des restaurants
      */
     public List<Noeud> getRestaurant(){
         List<Noeud> listResto = new ArrayList<>();
@@ -372,4 +372,15 @@ public class Graphe {
         return resultat;
     }
     
+    public Noeud[] relier(String arete){
+        for(Map.Entry<Noeud,List<Voisin>> item : parcours){
+            for(Voisin voisin : item.getValue()){
+                if(voisin.getRoute().toString().equals(arete)){
+                    Noeud[] extremite = new Noeud[]{item.getKey(),voisin.getDestination()};
+                    return extremite;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -4,7 +4,6 @@
  */
 package vue;
 
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,11 @@ import metier.Arete;
 import metier.Fichier;
 import metier.Graphe;
 import metier.Noeud;
+import modele.ModeleListArete;
+import modele.ModeleListLoisir;
 import modele.ModeleListNDistance;
 import modele.ModeleListNoeud;
+import modele.ModeleListResto;
 import modele.ModeleListVille;
 import modele.ModeleTableArete;
 import modele.ModeleTableInfo;
@@ -32,6 +34,9 @@ public class Grama extends javax.swing.JFrame {
     private final ModeleListNDistance modelListVoisin;
     private final ModeleListVille modelListVille;
     private final ModeleTableArete modelTableArete;
+    private final ModeleListResto modelListResto;
+    private final ModeleListLoisir modelListLoisir;
+    private final ModeleListArete modelListArete;
     
     /**
      * constructeur de la jFrame
@@ -42,16 +47,27 @@ public class Grama extends javax.swing.JFrame {
         modelListVoisin=new ModeleListNDistance();
         modelListVille=new ModeleListVille();
         modelTableArete=new ModeleTableArete();
+        modelListLoisir=new ModeleListLoisir();
+        modelListResto=new ModeleListResto();
+        modelListArete=new ModeleListArete();
         
         initComponents();
         jListSommet.setModel(modelListNoeud);
         jNbElement.setModel(modelTableInfo);
+        jNbElement.setColumnSelectionAllowed(false);
+        jNbElement.setRowSelectionAllowed(false);
         jListeNoeud.setModel(modelListNoeud);
         jListeNoeud.setLayoutOrientation(2);
         jListVoisin.setModel(modelListVoisin);
         jListVille1.setModel(modelListVille);
         jListVille2.setModel(modelListVille);
+        jListArete.setModel(modelListArete);
         jTableArete.setModel(modelTableArete);
+        jTableArete.setColumnSelectionAllowed(false);
+        jTableArete.setRowSelectionAllowed(false);
+        jList1.setModel(modelListVille);
+        jList2.setModel(modelListLoisir);
+        jList3.setModel(modelListResto);
         listeMethode.setVisible(false);
         jExecuter.setVisible(false);
     }
@@ -80,6 +96,9 @@ public class Grama extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * methode qui initialise le modele pour la jtable des aretes
+     */
     public void initModelTableArete(){
         List<Arete> listeArete = graphe.getArete();
         for(Arete item : listeArete){
@@ -94,6 +113,34 @@ public class Grama extends javax.swing.JFrame {
             modelListVille.ajouter(item.getNom());
         }
     }
+    
+    /**
+     * methode qui initialise le modele pour la jList de restaurant
+     */
+    public void initModelListResto(){
+        for(Noeud item : graphe.getRestaurant()){
+            modelListResto.ajouter(item.getNom());
+        }
+    }
+    
+    /**
+     * methode qui initialise le modele pour la jList de loisir
+     */
+    public void initModelListLoisir(){
+        for(Noeud item : graphe.getLoisir()){
+            modelListLoisir.ajouter(item.getNom());
+        }
+    }
+    
+    /**
+     * methode qui initialise le modele pour la jList de arete
+     */
+    public void initModelListArete(){
+        for(Arete item : graphe.getArete()){
+            modelListArete.ajouter(item.toString());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,17 +153,28 @@ public class Grama extends javax.swing.JFrame {
         jFileChooser = new javax.swing.JFileChooser();
         jGraphe = new javax.swing.JDialog();
         detailGraphe = new javax.swing.JDialog();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jNbElement = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jListeNoeud = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jTitrePageDetail = new javax.swing.JLabel();
         jIcon = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
         jLabelInfo = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListeNoeud = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTableArete = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jNbElement = new javax.swing.JTable();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jNDistance = new javax.swing.JDialog();
         jPanelTitre = new javax.swing.JPanel();
         jTitrePageNDistance = new javax.swing.JLabel();
@@ -126,11 +184,14 @@ public class Grama extends javax.swing.JFrame {
         jRadio2Distance = new javax.swing.JRadioButton();
         jDistance = new javax.swing.JLabel();
         jSommet = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollSommet = new javax.swing.JScrollPane();
         jListSommet = new javax.swing.JList<>();
         jValider = new javax.swing.JButton();
+        jRadioButtonTest = new javax.swing.JRadioButton();
+        jAide = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanelRésultat = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollVoisin = new javax.swing.JScrollPane();
         jListVoisin = new javax.swing.JList<>();
         jLabelRésultat = new javax.swing.JLabel();
         distance = new javax.swing.ButtonGroup();
@@ -149,6 +210,17 @@ public class Grama extends javax.swing.JFrame {
         jOuverte = new javax.swing.JLabel();
         jGastronomie = new javax.swing.JLabel();
         jCulture = new javax.swing.JLabel();
+        jAreteRelie = new javax.swing.JDialog();
+        jPanelTitre1 = new javax.swing.JPanel();
+        jTitrePageNDistance1 = new javax.swing.JLabel();
+        jLogo3 = new javax.swing.JLabel();
+        jParamètre1 = new javax.swing.JPanel();
+        jSommet1 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jListArete = new javax.swing.JList<>();
+        jValiderArete = new javax.swing.JButton();
+        jPanelRésultat1 = new javax.swing.JPanel();
+        jLabelRelier = new javax.swing.JLabel();
         jInfoFichier = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         TitreApp = new javax.swing.JLabel();
@@ -171,9 +243,7 @@ public class Grama extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jNbElement);
-
-        jScrollPane2.setViewportView(jListeNoeud);
+        detailGraphe.setTitle("Détail du graphe");
 
         jPanel1.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -190,7 +260,7 @@ public class Grama extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(242, 242, 242)
                 .addComponent(jIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jTitrePageDetail)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -207,48 +277,119 @@ public class Grama extends javax.swing.JFrame {
         jLabelInfo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelInfo.setText("Liste des noeuds composant le graphe");
 
-        jScrollPane7.setViewportView(jTableArete);
+        jScrollPane2.setViewportView(jListeNoeud);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Liste des arêtes reliant les noeuds du graphe");
+
+        jScrollPane7.setViewportView(jTableArete);
+
+        jScrollPane1.setViewportView(jNbElement);
+
+        jScrollPane9.setViewportView(jList1);
+
+        jScrollPane10.setViewportView(jList2);
+
+        jScrollPane11.setViewportView(jList3);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setText("Ville");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setText("Restaurant");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setText("Loisir");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelInfo)
+                        .addGap(270, 270, 270))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(52, 52, 52)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(252, 252, 252)
+                            .addComponent(jLabel1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(199, 199, 199)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(118, 118, 118))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+
+        jScrollPane8.setViewportView(jPanel3);
 
         javax.swing.GroupLayout detailGrapheLayout = new javax.swing.GroupLayout(detailGraphe.getContentPane());
         detailGraphe.getContentPane().setLayout(detailGrapheLayout);
         detailGrapheLayout.setHorizontalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailGrapheLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(259, 259, 259))
-            .addGroup(detailGrapheLayout.createSequentialGroup()
-                .addGroup(detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(detailGrapheLayout.createSequentialGroup()
-                        .addGap(265, 265, 265)
-                        .addComponent(jLabelInfo))
-                    .addGroup(detailGrapheLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
         );
         detailGrapheLayout.setVerticalGroup(
             detailGrapheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailGrapheLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelInfo)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
         );
 
         jPanelTitre.setBackground(new java.awt.Color(255, 51, 51));
@@ -292,7 +433,7 @@ public class Grama extends javax.swing.JFrame {
 
         jSommet.setText("Sommet : ");
 
-        jScrollPane3.setViewportView(jListSommet);
+        jScrollSommet.setViewportView(jListSommet);
 
         jValider.setText("Valider");
         jValider.addActionListener(new java.awt.event.ActionListener() {
@@ -301,27 +442,51 @@ public class Grama extends javax.swing.JFrame {
             }
         });
 
+        distance.add(jRadioButtonTest);
+        jRadioButtonTest.setText("est à 2 distance ?");
+
+        jAide.setText("Aide");
+        jAide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAideActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jParamètreLayout = new javax.swing.GroupLayout(jParamètre);
         jParamètre.setLayout(jParamètreLayout);
         jParamètreLayout.setHorizontalGroup(
             jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jParamètreLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jValider)
-                .addContainerGap(189, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jParamètreLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addComponent(jRadio2Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadio1Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jParamètreLayout.createSequentialGroup()
+                                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                    .addComponent(jRadio2Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRadio1Distance, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31))
+                            .addGroup(jParamètreLayout.createSequentialGroup()
+                                .addComponent(jRadioButtonTest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jValider)
+                        .addGap(64, 64, 64))
+                    .addGroup(jParamètreLayout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jParamètreLayout.createSequentialGroup()
                         .addComponent(jSommet, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                         .addContainerGap(54, Short.MAX_VALUE))
                     .addGroup(jParamètreLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jAide, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollSommet, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jParamètreLayout.setVerticalGroup(
@@ -336,16 +501,22 @@ public class Grama extends javax.swing.JFrame {
                     .addGroup(jParamètreLayout.createSequentialGroup()
                         .addComponent(jRadio1Distance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadio2Distance))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jRadio2Distance)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonTest))
+                    .addComponent(jScrollSommet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
-                .addComponent(jValider)
+                .addGroup(jParamètreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jValider)
+                    .addComponent(jAide))
                 .addContainerGap())
         );
 
         jPanelRésultat.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Résultat"));
 
-        jScrollPane4.setViewportView(jListVoisin);
+        jScrollVoisin.setViewportView(jListVoisin);
 
         javax.swing.GroupLayout jPanelRésultatLayout = new javax.swing.GroupLayout(jPanelRésultat);
         jPanelRésultat.setLayout(jPanelRésultatLayout);
@@ -357,16 +528,16 @@ public class Grama extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanelRésultatLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addComponent(jScrollVoisin, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanelRésultatLayout.setVerticalGroup(
             jPanelRésultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRésultatLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
                 .addComponent(jLabelRésultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollVoisin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
         );
 
@@ -403,7 +574,7 @@ public class Grama extends javax.swing.JFrame {
             jTitreComparaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jTitreComparaisonLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jTitrePageComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jTitrePageComparaison, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addGap(170, 170, 170))
         );
         jTitreComparaisonLayout.setVerticalGroup(
@@ -447,9 +618,9 @@ public class Grama extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jParamètre2Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jParamètre2Layout.setVerticalGroup(
             jParamètre2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,8 +686,124 @@ public class Grama extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanelTitre1.setBackground(new java.awt.Color(255, 51, 51));
+
+        jTitrePageNDistance1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jTitrePageNDistance1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitrePageNDistance1.setText("Quels noeud relie cette arête ?");
+
+        jLogo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/Voisin-Icon.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanelTitre1Layout = new javax.swing.GroupLayout(jPanelTitre1);
+        jPanelTitre1.setLayout(jPanelTitre1Layout);
+        jPanelTitre1Layout.setHorizontalGroup(
+            jPanelTitre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTitre1Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jLogo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTitrePageNDistance1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelTitre1Layout.setVerticalGroup(
+            jPanelTitre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTitre1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanelTitre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTitrePageNDistance1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLogo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jParamètre1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Paramètre"));
+
+        jSommet1.setText("Arete : ");
+
+        jScrollPane12.setViewportView(jListArete);
+
+        jValiderArete.setText("Valider");
+        jValiderArete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jValiderAreteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jParamètre1Layout = new javax.swing.GroupLayout(jParamètre1);
+        jParamètre1.setLayout(jParamètre1Layout);
+        jParamètre1Layout.setHorizontalGroup(
+            jParamètre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètre1Layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addGroup(jParamètre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSommet1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jParamètre1Layout.createSequentialGroup()
+                        .addGroup(jParamètre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jParamètre1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jValiderArete)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jParamètre1Layout.setVerticalGroup(
+            jParamètre1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jParamètre1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jSommet1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jValiderArete)
+                .addContainerGap())
+        );
+
+        jPanelRésultat1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Résultat"));
+
+        javax.swing.GroupLayout jPanelRésultat1Layout = new javax.swing.GroupLayout(jPanelRésultat1);
+        jPanelRésultat1.setLayout(jPanelRésultat1Layout);
+        jPanelRésultat1Layout.setHorizontalGroup(
+            jPanelRésultat1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRésultat1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelRelier, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelRésultat1Layout.setVerticalGroup(
+            jPanelRésultat1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRésultat1Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jLabelRelier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(129, 129, 129))
+        );
+
+        javax.swing.GroupLayout jAreteRelieLayout = new javax.swing.GroupLayout(jAreteRelie.getContentPane());
+        jAreteRelie.getContentPane().setLayout(jAreteRelieLayout);
+        jAreteRelieLayout.setHorizontalGroup(
+            jAreteRelieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelTitre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jAreteRelieLayout.createSequentialGroup()
+                .addComponent(jParamètre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelRésultat1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jAreteRelieLayout.setVerticalGroup(
+            jAreteRelieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAreteRelieLayout.createSequentialGroup()
+                .addComponent(jPanelTitre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jAreteRelieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jParamètre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelRésultat1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Grama");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jInfoFichier.setText("Veuillez ouvrir le fichier contenant les sommets du graphe");
 
@@ -549,7 +836,7 @@ public class Grama extends javax.swing.JFrame {
                 .addGap(11, 11, 11))
         );
 
-        listeMethode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "afficher le graphe", "information sur le graphe", "voisin à n-distance", "comparaison entre 2 sommets" }));
+        listeMethode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "afficher le graphe", "information sur le graphe", "voisin à n-distance", "que relie l'arête ?", "comparaison entre 2 sommets" }));
         listeMethode.setInheritsPopupMenu(true);
 
         jExecuter.setText("Executer");
@@ -611,8 +898,14 @@ public class Grama extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /** 
+     * methode qui va charger le fichier et construire le graphe en utilisant la methode de decoupage
+     * cette methode va aussi appeler les methodes qui initialisent les modeles des jtable et jliste
+     * @param evt objet qui effectue l'action
+     */
     private void jOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOuvrirActionPerformed
         // TODO add your handling code here:
         jFileChooser.showOpenDialog(this);
@@ -624,6 +917,9 @@ public class Grama extends javax.swing.JFrame {
             this.initModelListNoeud();
             this.initModelListVille();
             this.initModelTableArete();
+            this.initModelListLoisir();
+            this.initModelListResto();
+            this.initModelListArete();
             listeMethode.setVisible(true);
             jExecuter.setVisible(true);
         } catch (IOException ex) {
@@ -631,6 +927,11 @@ public class Grama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jOuvrirActionPerformed
 
+    /**
+     * methode qui va tester quel est fonctionnalité souhaité pour ouvrir la fenetre correspondante
+     * elle va aussi dessiner le graphe si "afficher le graphe" est selectionnée
+     * @param evt objet qui effectue l'action
+     */
     private void jExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExecuterActionPerformed
         // TODO add your handling code here:
         if(listeMethode.getSelectedItem().equals("information sur le graphe")){
@@ -651,11 +952,22 @@ public class Grama extends javax.swing.JFrame {
             jGraphe.setSize(1250, 800);
             jGraphe.setVisible(true);
         }
+        else if(listeMethode.getSelectedItem().equals("que relie l'arête ?")){
+            jAreteRelie.setVisible(true);
+            jAreteRelie.pack();
+        }
     }//GEN-LAST:event_jExecuterActionPerformed
 
+    /**
+     * methode qui permet d'executer les methodes d'affichage des voisins a 1 et 2 distances 
+     * et de mettre le resultat dans une jList
+     * @param evt objet qui effectue l'action
+     */
     private void jValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValiderActionPerformed
         // TODO add your handling code here:
         if(jRadio1Distance.isSelected()){
+            
+            jScrollVoisin.setVisible(true);
             modelListVoisin.vider();
             List<Noeud> listeVoisin=graphe.unDistance(jListSommet.getSelectedValue());
             jLabelRésultat.setText("Voisin(s) du sommet "+jListSommet.getSelectedValue()+" à 1-distance :");
@@ -664,6 +976,8 @@ public class Grama extends javax.swing.JFrame {
             }
         }
         else if (jRadio2Distance.isSelected()){
+            
+            jScrollVoisin.setVisible(true);
             modelListVoisin.vider();
             List<Noeud> listeVoisin=graphe.deuxDistance(jListSommet.getSelectedValue());
             jLabelRésultat.setText("Voisin(s) du sommet "+jListSommet.getSelectedValue()+" à 2-distance :");
@@ -671,8 +985,34 @@ public class Grama extends javax.swing.JFrame {
                 modelListVoisin.ajouter(item.toString());
             }
         }
+        else if (jRadioButtonTest.isSelected()){
+            
+            jScrollVoisin.setVisible(false);
+            if(jListSommet.getSelectedValuesList().isEmpty()||jListSommet.getSelectedValuesList().size()>2){
+                JOptionPane.showMessageDialog(jNDistance, "Vous devez sélectionner 2 Noeuds dans la liste !", "Attention", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                List<Noeud> voisin2Saut = graphe.deuxDistance(jListSommet.getSelectedValuesList().get(0));
+                boolean estDedant=false;
+                for(Noeud item : voisin2Saut){
+                    if(item.toString().equals(jListSommet.getSelectedValuesList().get(1))){
+                        estDedant=true;
+                    }
+                }
+                if(estDedant){
+                    jLabelRésultat.setText(jListSommet.getSelectedValuesList().get(1)+" est à deux distances de  "+ jListSommet.getSelectedValuesList().get(0));
+                }
+                else{
+                    jLabelRésultat.setText(jListSommet.getSelectedValuesList().get(1)+" n'est pas à deux distances de  "+ jListSommet.getSelectedValuesList().get(0));
+                }
+            }
+        }
     }//GEN-LAST:event_jValiderActionPerformed
 
+    /**
+     * methode qui permet d'exécuter la comparaison entre 2 Noeuds
+     * @param evt objet qui effectue l'action
+     */
     private void jButtonValiderCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderCompActionPerformed
         // TODO add your handling code here:
         String[] resultat = graphe.comparaison(jListVille1.getSelectedValue(), jListVille2.getSelectedValue());
@@ -681,8 +1021,28 @@ public class Grama extends javax.swing.JFrame {
         jGastronomie.setText(resultat[2]);
     }//GEN-LAST:event_jButtonValiderCompActionPerformed
 
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment quitter ?", "Fermeture",JOptionPane.OK_CANCEL_OPTION)==0){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jValiderAreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValiderAreteActionPerformed
+        // TODO add your handling code here:
+        Noeud[] extremite = graphe.relier(jListArete.getSelectedValue());
+        jLabelRelier.setText("L'arête "+jListArete.getSelectedValue()+" relie le noeud : "+extremite[0].toString()+" au noeud : "+extremite[1].toString());
+    }//GEN-LAST:event_jValiderAreteActionPerformed
+
+    private void jAideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAideActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Sélectionner le radio bouton correspondant à la fonction que vous souhaitez exécuter. "
+                + "Si vous choisissez le 3ème : séléctionnez bien 2 noeuds dans la liste", "Information" , JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jAideActionPerformed
+
     /**
-     * @param args the command line arguments
+     * @param args liste des arguments 
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -728,6 +1088,8 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JLabel TitreApp;
     private javax.swing.JDialog detailGraphe;
     private javax.swing.ButtonGroup distance;
+    private javax.swing.JButton jAide;
+    private javax.swing.JDialog jAreteRelie;
     private javax.swing.JButton jButtonValiderComp;
     private javax.swing.JDialog jComparaison;
     private javax.swing.JLabel jCulture;
@@ -739,16 +1101,25 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JLabel jIcon;
     private javax.swing.JLabel jInfoFichier;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCarte;
     private javax.swing.JLabel jLabelIndication;
     private javax.swing.JLabel jLabelInfo;
+    private javax.swing.JLabel jLabelRelier;
     private javax.swing.JLabel jLabelRésultat;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
+    private javax.swing.JList<String> jListArete;
     private javax.swing.JList<String> jListSommet;
     private javax.swing.JList<String> jListVille1;
     private javax.swing.JList<String> jListVille2;
     private javax.swing.JList<String> jListVoisin;
     private javax.swing.JList<String> jListeNoeud;
     private javax.swing.JLabel jLogo2;
+    private javax.swing.JLabel jLogo3;
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JDialog jNDistance;
@@ -757,27 +1128,41 @@ public class Grama extends javax.swing.JFrame {
     private javax.swing.JMenuItem jOuvrir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelRésultat;
+    private javax.swing.JPanel jPanelRésultat1;
     private javax.swing.JPanel jPanelRésultat2;
     private javax.swing.JPanel jPanelTitre;
+    private javax.swing.JPanel jPanelTitre1;
     private javax.swing.JPanel jParamètre;
+    private javax.swing.JPanel jParamètre1;
     private javax.swing.JPanel jParamètre2;
     private javax.swing.JRadioButton jRadio1Distance;
     private javax.swing.JRadioButton jRadio2Distance;
+    private javax.swing.JRadioButton jRadioButtonTest;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JScrollPane jScrollSommet;
+    private javax.swing.JScrollPane jScrollVoisin;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel jSommet;
+    private javax.swing.JLabel jSommet1;
     private javax.swing.JTable jTableArete;
     private javax.swing.JPanel jTitreComparaison;
     private javax.swing.JLabel jTitrePageComparaison;
     private javax.swing.JLabel jTitrePageDetail;
     private javax.swing.JLabel jTitrePageNDistance;
+    private javax.swing.JLabel jTitrePageNDistance1;
     private javax.swing.JButton jValider;
+    private javax.swing.JButton jValiderArete;
     private javax.swing.JLabel jVersus;
     private javax.swing.JComboBox<String> listeMethode;
     // End of variables declaration//GEN-END:variables
