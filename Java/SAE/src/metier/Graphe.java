@@ -292,6 +292,7 @@ public class Graphe {
                     Iterator<Voisin> itDeuxSaut = graphe.get(itUnSaut.next().getDestination()).iterator();
                     while(itDeuxSaut.hasNext()){
                         v=itDeuxSaut.next();
+                        boolean result = listVoisin.contains(v);
                         if(!(v.getDestination().equals(item.getKey()))&&!(deuxdist.contains(v.getDestination()))&&!(listVoisin.contains(v))){
                             deuxdist.add(v.getDestination());
                         }
@@ -372,6 +373,11 @@ public class Graphe {
         return resultat;
     }
     
+    /**
+     * methode qui permet de donner les sommets relies par une arete
+     * @param arete arete dont on veut les sommets qu'elle relie
+     * @return un liste contenant les noeuds relies par l'arete
+     */
     public Noeud[] relier(String arete){
         for(Map.Entry<Noeud,List<Voisin>> item : parcours){
             for(Voisin voisin : item.getValue()){

@@ -258,9 +258,9 @@ public class Grama extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(jIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(260, 260, 260)
+                .addComponent(jIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTitrePageDetail)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -269,8 +269,8 @@ public class Grama extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTitrePageDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTitrePageDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -690,7 +690,7 @@ public class Grama extends javax.swing.JFrame {
 
         jTitrePageNDistance1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jTitrePageNDistance1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jTitrePageNDistance1.setText("Quels noeud relie cette arête ?");
+        jTitrePageNDistance1.setText("Quels noeuds relie cette arête ?");
 
         jLogo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/Voisin-Icon.png"))); // NOI18N
 
@@ -1021,7 +1021,10 @@ public class Grama extends javax.swing.JFrame {
         jGastronomie.setText(resultat[2]);
     }//GEN-LAST:event_jButtonValiderCompActionPerformed
 
-    
+    /**
+     * methode qui affiche un jOptionPane pour valider ou non la fermeture de l'application
+     * @param evt objet qui effectue l'action
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         if(JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment quitter ?", "Fermeture",JOptionPane.OK_CANCEL_OPTION)==0){
@@ -1029,12 +1032,20 @@ public class Grama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * methode qui permet d'exécuter la recherche des noeuds relies par une arete
+     * @param evt objet qui effectue l'action
+     */
     private void jValiderAreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValiderAreteActionPerformed
         // TODO add your handling code here:
         Noeud[] extremite = graphe.relier(jListArete.getSelectedValue());
         jLabelRelier.setText("L'arête "+jListArete.getSelectedValue()+" relie le noeud : "+extremite[0].toString()+" au noeud : "+extremite[1].toString());
     }//GEN-LAST:event_jValiderAreteActionPerformed
 
+    /**
+     * methode qui affiche un jOptionPane pour indiquer plus d'information sur comment utiliser les éléments d'une page
+     * @param evt objet qui effectue l'action
+     */
     private void jAideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAideActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Sélectionner le radio bouton correspondant à la fonction que vous souhaitez exécuter. "

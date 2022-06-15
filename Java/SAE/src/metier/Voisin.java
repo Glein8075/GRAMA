@@ -15,12 +15,12 @@ public class Voisin /*implements Iterator*/{
     /**
      * attribue route étant un objet de la classe Arête.
      */
-    private final Arete route;
+    private Arete route;
     
     /**
      * attribue destination étant un objet de la classe Noeud.
      */
-    private final Noeud destination;
+    private Noeud destination;
     
     /**
      * constructeur de la classe Voisin
